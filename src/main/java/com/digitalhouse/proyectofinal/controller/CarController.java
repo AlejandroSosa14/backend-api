@@ -13,14 +13,16 @@ import com.digitalhouse.proyectofinal.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("cars/")
 public class CarController {
 
     private final CarService carService;
 
-    @GetMapping("cars/")
+    @GetMapping
     public ResponseEntity<?> getAll() {
 
         try {
@@ -31,7 +33,7 @@ public class CarController {
 
     }
 
-    @GetMapping("cars/transmission/{transmission}")
+    @GetMapping("transmission/{transmission}")
     public ResponseEntity<?> findByTransmission(@PathVariable String transmission) {
 
         try {
@@ -42,7 +44,7 @@ public class CarController {
 
     }
 
-    @GetMapping("cars/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
 
         try {
@@ -52,7 +54,7 @@ public class CarController {
         }
     }
 
-    @PostMapping("cars/")
+    @PostMapping
     public ResponseEntity<?> postMethodName(@RequestBody CarEntity car) {
 
         try {
@@ -67,7 +69,7 @@ public class CarController {
 
     }
 
-    @DeleteMapping("cars/{id}")
+    @DeleteMapping("{id}")
     public void deleteById(@PathVariable Long id) {
 
         try {
