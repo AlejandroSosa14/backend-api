@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.service.CarService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,6 +50,21 @@ public class CarController {
         } catch (RuntimeException r) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
         }
+    }
+
+    @PostMapping("cars/")
+    public ResponseEntity<?> postMethodName(@RequestBody CarEntity car) {
+
+        try {
+
+            CarEntity carEntitySave = carService.create(car);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
+            
+        } catch (RuntimeException r) {
+            return ResponseEntity.badRequest().body(r.getMessage());
+        }
+
     }
 
     @DeleteMapping("cars/{id}")

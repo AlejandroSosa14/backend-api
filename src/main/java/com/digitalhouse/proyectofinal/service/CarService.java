@@ -39,7 +39,7 @@ public class CarService {
         return car.get();
     }
 
-    public List<CarEntity> findByTransmission(String transmission){
+    public List<CarEntity> findByTransmission(String transmission) {
 
         List<CarEntity> cars = carRepository.findByTransmissionType(transmission);
 
@@ -61,6 +61,15 @@ public class CarService {
 
         carRepository.deleteById(id);
 
+    }
+
+    public CarEntity create(CarEntity carEntity) {
+
+        if (carEntity == null) {
+            throw new RuntimeException("Car cannot empty");
+        }
+
+        return carRepository.save(carEntity);
     }
 
 }

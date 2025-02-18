@@ -21,7 +21,9 @@ public class ProyectofinalApplication {
 		return args -> {
 			carRepository.save(
 					new CarEntity(
-							null, "NISSAN",
+							null,
+							"00000000000000001",
+							"NISSAN",
 							"X Trail Advance",
 							2025,
 							true,
@@ -41,6 +43,7 @@ public class ProyectofinalApplication {
 
 			carRepository.save(
 					new CarEntity(
+							"00000000000000002",
 							"NISSAN",
 							"Versa",
 							2020,

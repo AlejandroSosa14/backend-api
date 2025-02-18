@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7445b9e7-a218-4ef3-a3eb-02d31a741903",
+		"_postman_id": "d8381f08-5b3f-4fdc-8912-d68e7b7436a2",
 		"name": "reservauto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36205139"
@@ -138,6 +138,49 @@
 					"path": [
 						"cars",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cars",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "administrador",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serialNumber\": \"00000000000000003\",\r\n    \"brand\": \"NISSAN\",\r\n    \"name\": \"Sentra\",\r\n    \"model\": 2019,\r\n    \"status\": true,\r\n    \"fuelType\": \"gasolina\",\r\n    \"transmissionType\": \"automatico\",\r\n    \"reserveCost\": 200.00,\r\n    \"images\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8181/cars/",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"cars",
+						""
 					]
 				}
 			},
