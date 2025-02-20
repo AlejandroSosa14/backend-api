@@ -23,7 +23,15 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        // Permitir acceso sin autenticación a Swagger
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        // Permitir acceso a rutas públicas
                         .requestMatchers("/public/**").permitAll()
+                        // Todas las demás rutas requieren autenticación
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {});
