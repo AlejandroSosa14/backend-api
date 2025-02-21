@@ -51,6 +51,18 @@ public class CarService {
 
     }
 
+    public CarEntity update(String serialNumber, CarEntity carEntity){
+
+        Optional<CarEntity> carFound = carRepository.findBySerialNumber(serialNumber);
+
+        if (carFound.isEmpty()){
+            throw new RuntimeException("Cars not found");
+        }
+
+        carRepository.save(carEntity);
+        return carEntity;
+    }
+
     public void deleteById(Long id) {
 
         Optional<CarEntity> car = carRepository.findById(id);

@@ -10,19 +10,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.service.CarService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,7 +38,12 @@ public class CarController {
         try {
             return ResponseEntity.ok().body(carService.getAll());
         } catch (RuntimeException r) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
+
+            Map<String,String> error = new HashMap<>();
+
+            error.put("error",r.getMessage());
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
         }
 
     }
@@ -56,7 +58,12 @@ public class CarController {
         try {
             return ResponseEntity.ok().body(carService.findByTransmission(transmission));
         } catch (RuntimeException r) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
+
+            Map<String,String> error = new HashMap<>();
+
+            error.put("error",r.getMessage());
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
         }
 
     }
@@ -71,7 +78,12 @@ public class CarController {
         try {
             return ResponseEntity.ok().body(carService.getById(id));
         } catch (RuntimeException r) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(r.getMessage());
+
+            Map<String,String> error = new HashMap<>();
+
+            error.put("error",r.getMessage());
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
         }
     }
 
@@ -83,6 +95,26 @@ public class CarController {
 
         CarEntity carEntitySave = carService.create(car);
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
+
+    }
+
+    @PutMapping("/{serial}")
+    @Operation(summary = "Actualiza un auto", description = "Actualiza auto en el sistema.")
+    @ApiResponse(responseCode = "200", description = "Auto actualizado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
+    @ApiResponse(responseCode = "400", description = "Error en la actualizacion del auto")
+    public ResponseEntity<?> update(@PathVariable(name = "serial") String serialNumber, @Valid @RequestBody CarEntity car) {
+
+        try {
+            CarEntity carEntityUpdate = carService.update(serialNumber,car);
+            return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
+        }catch (RuntimeException r){
+
+            Map<String,String> error = new HashMap<>();
+
+            error.put("error",r.getMessage());
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
 
     }
 
