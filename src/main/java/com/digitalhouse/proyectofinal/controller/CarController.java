@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/cars")
+@RequestMapping("cars")
 @Tag(name = "Car Controller", description = "API para la gestión de automóviles")
 @Validated
 public class CarController {
 
     private final CarService carService;
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Obtener todos los autos", description = "Devuelve una lista de todos los autos registrados en el sistema.")
     @ApiResponse(responseCode = "200", description = "Lista de autos obtenida exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     public ResponseEntity<?> getAll() {
@@ -75,7 +75,7 @@ public class CarController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Registrar un auto", description = "Guarda un nuevo auto en el sistema.")
     @ApiResponse(responseCode = "201", description = "Auto creado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la creación del auto")
