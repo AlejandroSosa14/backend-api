@@ -43,6 +43,7 @@ public class ProyectofinalApplication {
 
 			carRepository.save(
 					new CarEntity(
+							null,
 							"00000000000000002",
 							"NISSAN",
 							"Versa",
@@ -50,7 +51,8 @@ public class ProyectofinalApplication {
 							false,
 							"gasolina",
 							"estandar",
-							new BigDecimal(450)));
+							new BigDecimal(450),
+							null));
 		};
 	}
 

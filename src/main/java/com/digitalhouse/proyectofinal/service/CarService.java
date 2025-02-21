@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
@@ -26,6 +25,7 @@ public class CarService {
         }
 
         return cars;
+
     }
 
     public CarEntity getById(Long id) {
@@ -64,11 +64,6 @@ public class CarService {
     }
 
     public CarEntity create(CarEntity carEntity) {
-
-        if (carEntity == null) {
-            throw new RuntimeException("Car cannot empty");
-        }
-
         return carRepository.save(carEntity);
     }
 

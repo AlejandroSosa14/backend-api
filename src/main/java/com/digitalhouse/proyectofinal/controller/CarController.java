@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.service.CarService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +28,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("/cars")
 @Tag(name = "Car Controller", description = "API para la gestión de automóviles")
+@Validated
 public class CarController {
 
     private final CarService carService;
 
     @GetMapping("/")
     @Operation(summary = "Obtener todos los autos", description = "Devuelve una lista de todos los autos registrados en el sistema.")
-    @ApiResponse(responseCode = "200", description = "Lista de autos obtenida exitosamente",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = CarEntity.class)))
+    @ApiResponse(responseCode = "200", description = "Lista de autos obtenida exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     public ResponseEntity<?> getAll() {
 
         try {
@@ -45,16 +46,12 @@ public class CarController {
 
     }
 
-    //@GetMapping("cars/transmission/{transmission}")
     @GetMapping("/transmission/{transmission}")
     @Operation(summary = "Buscar autos por transmisión", description = "Filtra autos por tipo de transmisión (Manual o Automático).")
-    @ApiResponse(responseCode = "200", description = "Lista de autos filtrada exitosamente",
-            content = @Content(mediaType = "application/json",
-                    examples = @ExampleObject(value = "[{\"id\": 1, \"brand\": \"Toyota\", \"model\": \"Corolla\", \"transmission\": \"Automatic\"}]")))
+    @ApiResponse(responseCode = "200", description = "Lista de autos filtrada exitosamente", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = "[{\"id\": 1, \"brand\": \"Toyota\", \"model\": \"Corolla\", \"transmission\": \"Automatic\"}]")))
     @ApiResponse(responseCode = "404", description = "No se encontraron autos con esa transmisión")
     public ResponseEntity<?> findByTransmission(
-            @Parameter(description = "Tipo de transmisión a buscar", example = "Automatic")
-            @PathVariable String transmission) {
+            @Parameter(description = "Tipo de transmisión a buscar", example = "Automatic") @PathVariable String transmission) {
 
         try {
             return ResponseEntity.ok().body(carService.findByTransmission(transmission));
@@ -64,16 +61,12 @@ public class CarController {
 
     }
 
-    //@GetMapping("cars/{id}")
     @GetMapping("/{id}")
     @Operation(summary = "Buscar auto por ID", description = "Devuelve los detalles de un automóvil específico según su ID.")
-    @ApiResponse(responseCode = "200", description = "Auto encontrado exitosamente",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = CarEntity.class)))
+    @ApiResponse(responseCode = "200", description = "Auto encontrado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "404", description = "Auto no encontrado")
     public ResponseEntity<?> getById(
-            @Parameter(description = "ID del auto a buscar", example = "1")
-            @PathVariable Long id) {
+            @Parameter(description = "ID del auto a buscar", example = "1") @PathVariable Long id) {
 
         try {
             return ResponseEntity.ok().body(carService.getById(id));
@@ -82,40 +75,27 @@ public class CarController {
         }
     }
 
-    //@PostMapping("cars/")
     @PostMapping("/")
     @Operation(summary = "Registrar un auto", description = "Guarda un nuevo auto en el sistema.")
-    @ApiResponse(responseCode = "201", description = "Auto creado exitosamente",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = CarEntity.class)))
+    @ApiResponse(responseCode = "201", description = "Auto creado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la creación del auto")
-    public ResponseEntity<?> postMethodName(@RequestBody CarEntity car) {
+    public ResponseEntity<?> create(@Valid @RequestBody CarEntity car) {
 
-        try {
-
-            CarEntity carEntitySave = carService.create(car);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
-
-        } catch (RuntimeException r) {
-            return ResponseEntity.badRequest().body(r.getMessage());
-        }
+        CarEntity carEntitySave = carService.create(car);
+        return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
 
     }
 
-    //@DeleteMapping("cars/{id}")
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un auto", description = "Elimina un auto del sistema según su ID.")
     @ApiResponse(responseCode = "200", description = "Auto eliminado exitosamente")
     @ApiResponse(responseCode = "404", description = "Auto no encontrado")
-    public void deleteById(
-            @Parameter(description = "ID del auto a eliminar", example = "1")
-            @PathVariable Long id) {
+    public void deleteById(@Parameter(description = "ID del auto a eliminar", example = "1") @PathVariable Long id) {
 
         try {
             carService.deleteById(id);
             ResponseEntity.ok();
-            //ResponseEntity.noContent().build();
+            // ResponseEntity.noContent().build();
         } catch (RuntimeException r) {
             ResponseEntity.notFound();
         }

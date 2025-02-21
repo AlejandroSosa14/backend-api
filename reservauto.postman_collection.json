@@ -7,184 +7,189 @@
 	},
 	"item": [
 		{
-			"name": "cars",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "administrador",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8181/cars/",
-					"host": [
-						"localhost"
-					],
-					"port": "8181",
-					"path": [
-						"cars",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "findByTransmission",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "administrador",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8181/cars/transmission/estandar",
-					"host": [
-						"localhost"
-					],
-					"port": "8181",
-					"path": [
-						"cars",
-						"transmission",
-						"estandar"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "car",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
+			"item": [
+				{
+					"name": "Getcars",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "administrador",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "username",
-							"value": "administrador",
-							"type": "string"
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/cars/",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"cars",
+								""
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8181/cars/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8181",
-					"path": [
-						"cars",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
+				{
+					"name": "findCarByTransmission",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "administrador",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "username",
-							"value": "administrador",
-							"type": "string"
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/cars/transmission/automatico",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"cars",
+								"transmission",
+								"automatico"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8181/cars/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8181",
-					"path": [
-						"cars",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "cars",
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
+				{
+					"name": "getCar",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "administrador",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "username",
-							"value": "administrador",
-							"type": "string"
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/cars/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"cars",
+								"2"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"serialNumber\": \"00000000000000003\",\r\n    \"brand\": \"NISSAN\",\r\n    \"name\": \"Sentra\",\r\n    \"model\": 2019,\r\n    \"status\": true,\r\n    \"fuelType\": \"gasolina\",\r\n    \"transmissionType\": \"automatico\",\r\n    \"reserveCost\": 200.00,\r\n    \"images\": null\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "deleteCar",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "administrador",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/cars/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"cars",
+								"2"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8181/cars/",
-					"host": [
-						"localhost"
-					],
-					"port": "8181",
-					"path": [
-						"cars",
-						""
-					]
+				{
+					"name": "createCar",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "administrador",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"serialNumber\": \"00000000000000003\",\r\n    \"brand\": \"Toyota\",\r\n    \"name\": \"Corolla\",\r\n    \"model\": 1960,\r\n    \"status\": true,\r\n    \"fuelType\": \"Gasolina\",\r\n    \"transmissionType\": \"estandar\",\r\n    \"reserveCost\": 500.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8181/cars/",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"cars",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
