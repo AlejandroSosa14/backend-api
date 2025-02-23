@@ -7,6 +7,9 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,10 +36,19 @@ public class CarController {
     @GetMapping
     @Operation(summary = "Obtener todos los autos", description = "Devuelve una lista de todos los autos registrados en el sistema.")
     @ApiResponse(responseCode = "200", description = "Lista de autos obtenida exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
 
         try {
-            return ResponseEntity.ok().body(carService.getAll());
+
+            Page<CarEntity> carsPage = carService.getAll(page, size);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("content", carsPage.getContent());
+            response.put("totalPages", carsPage.getTotalPages());
+            response.put("totalElements", carsPage.getTotalElements());
+            response.put("currentPage", page);
+
+            return ResponseEntity.ok().body(response);
         } catch (RuntimeException r) {
 
             Map<String,String> error = new HashMap<>();
@@ -53,19 +65,27 @@ public class CarController {
     @ApiResponse(responseCode = "200", description = "Lista de autos filtrada exitosamente", content = @Content(mediaType = "application/json", examples = @ExampleObject(value = "[{\"id\": 1, \"brand\": \"Toyota\", \"model\": \"Corolla\", \"transmission\": \"Automatic\"}]")))
     @ApiResponse(responseCode = "404", description = "No se encontraron autos con esa transmisión")
     public ResponseEntity<?> findByTransmission(
-            @Parameter(description = "Tipo de transmisión a buscar", example = "Automatic") @PathVariable String transmission) {
+            @Parameter(description = "Tipo de transmisión a buscar", example = "Automatic") @PathVariable String transmission,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
 
         try {
-            return ResponseEntity.ok().body(carService.findByTransmission(transmission));
+            Pageable pageable = PageRequest.of(page, size);
+            Page<CarEntity> cars = carService.findByTransmission(transmission, pageable);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("content", cars.getContent());
+            response.put("totalPages", cars.getTotalPages());
+            response.put("totalElements", cars.getTotalElements());
+            response.put("currentPage", page);
+
+            return ResponseEntity.ok().body(response);
+
         } catch (RuntimeException r) {
-
-            Map<String,String> error = new HashMap<>();
-
-            error.put("error",r.getMessage());
-
+            Map<String, String> error = new HashMap<>();
+            error.put("error", r.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
         }
-
     }
 
     @GetMapping("/{id}")

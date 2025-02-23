@@ -30,13 +30,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/cars",
+							"raw": "localhost:8181/cars?page=0&size=2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
 								"cars"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -63,7 +73,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/cars/transmission/automatico",
+							"raw": "localhost:8181/cars/transmission/automatico?page=0&size=2",
 							"host": [
 								"localhost"
 							],
@@ -72,6 +82,16 @@
 								"cars",
 								"transmission",
 								"automatico"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -167,7 +187,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"serialNumber\": \"00000000000000003\",\r\n    \"brand\": \"Toyota\",\r\n    \"name\": \"Corolla\",\r\n    \"model\": 1960,\r\n    \"status\": true,\r\n    \"fuelType\": \"Gasolina\",\r\n    \"transmissionType\": \"estandar\",\r\n    \"reserveCost\": 500.00\r\n}",
+							"raw": "{\r\n    \"serialNumber\": \"0000000000000000\",\r\n    \"brand\": \"Toyota\",\r\n    \"name\": \"Corolla\",\r\n    \"model\": 1910,\r\n    \"status\": true,\r\n    \"fuelType\": \"Gasolina\",\r\n    \"transmissionType\": \"estandar\",\r\n    \"reserveCost\": 500.00\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

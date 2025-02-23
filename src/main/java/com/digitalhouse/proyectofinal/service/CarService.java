@@ -3,6 +3,9 @@ package com.digitalhouse.proyectofinal.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
@@ -16,15 +19,11 @@ public class CarService {
 
     private final CarRepository carRepository;
 
-    public List<CarEntity> getAll() {
+    public Page<CarEntity> getAll(int page, int size) {
 
-        List<CarEntity> cars = carRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
 
-        if (cars.isEmpty()) {
-            throw new RuntimeException("Cars not found");
-        }
-
-        return cars;
+        return  carRepository.findAll(pageable);
 
     }
 
@@ -39,9 +38,9 @@ public class CarService {
         return car.get();
     }
 
-    public List<CarEntity> findByTransmission(String transmission) {
+    public Page<CarEntity> findByTransmission(String transmission, Pageable pageable) {
 
-        List<CarEntity> cars = carRepository.findByTransmissionType(transmission);
+        Page<CarEntity> cars = carRepository.findByTransmissionType(transmission,pageable);
 
         if (cars.isEmpty()) {
             throw new RuntimeException("Cars not found");
