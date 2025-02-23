@@ -1,7 +1,9 @@
 package com.digitalhouse.proyectofinal;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
+import com.digitalhouse.proyectofinal.entity.Category;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
+import com.digitalhouse.proyectofinal.repository.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,10 +17,14 @@ public class ProyectofinalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectofinalApplication.class, args);
 	}
-	
+
 	@Bean
-	CommandLineRunner init(CarRepository carRepository) {
+	CommandLineRunner init(CategoryRepository categoryRepository, CarRepository carRepository) {
 		return args -> {
+
+			categoryRepository.save(new Category(null,"Crossover",null));
+			categoryRepository.save(new Category(null,"Sedan","Description"));
+
 			carRepository.save(
 					new CarEntity(
 							null,
@@ -39,7 +45,8 @@ public class ProyectofinalApplication {
 									"    \"http://localhost:8181/images/nissan/5.jpg\",\n" +
 									"    \"http://localhost:8181/images/nissan/6.jpg\"\n" +
 									"  ]\n" +
-									"}"));
+									"}",
+							new Category(1L,"Crossover",null)));
 
 			carRepository.save(
 					new CarEntity(
@@ -52,7 +59,8 @@ public class ProyectofinalApplication {
 							"gasolina",
 							"estandar",
 							new BigDecimal(450),
-							null));
+							null,
+					new Category(2L,"Sedan","Description")));
 		};
 	}
 
