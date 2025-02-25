@@ -5,22 +5,22 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
 public class CarEntity {
@@ -29,42 +29,53 @@ public class CarEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(length = 17,nullable = false,  unique = true)
-    @NonNull
-    @Size(min = 17, max = 17, message = "17 characters required")
+    @NotBlank(message = "Serial number required")
+    @Size(min = 17, max = 17,message = "Serial number must be 17 characters")
     private String serialNumber;
 
     @Setter
-    @NonNull
+    @NotBlank(message = "Brand required")
     private String brand;
 
     @Setter
-    @NonNull
+    @NotBlank(message = "Name required")
     private String name;
 
     @Setter
-    @NonNull
+    @NotNull(message = "Model required")
+    @Min(value = 1960, message = "Model must be grater than 1960")
+    @Max(value = 2025, message = "Model must be less than 2025")
     private Integer model;
 
     @Setter
-    @NonNull
+    @NotNull(message = "Model required")
     private Boolean status;
 
     @Setter
-    @NonNull
+    @NotBlank(message = "Fuel type required")
     private String fuelType;
 
     @Setter
-    @NonNull
+    @NotBlank(message = "Transmission type required")
     private String transmissionType;
 
     @Setter
-    @NonNull
+    @NotNull(message = "Model required")
+    @Positive(message = "The cost must be positive")
+    @Digits(integer = 4, fraction = 2, message = "Format error for reserve cost")
+    @DecimalMin(value = "0.0", inclusive = false, message = "The cost must be greater than 0.0")
     private BigDecimal reserveCost;
 
     @Setter
-    @Column(nullable = true, columnDefinition = "json")
+    @Column(columnDefinition = "json")
     @JsonProperty("images")
     @JsonRawValue
     private String images;
+
+    @ManyToOne
+    @Setter
+    @NotNull(message = "Category required")
+    private CategoryEntity category;
 }

@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
@@ -23,8 +24,24 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**").permitAll()
-                        .anyRequest().authenticated()
+                        // Permitir acceso sin autenticación a Swagger
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod. GET,"/cars/**").permitAll()
+                        .requestMatchers(HttpMethod. DELETE,"/cars/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. POST,"/cars").hasRole("admin")
+                        .requestMatchers(HttpMethod. PUT,"/cars/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. GET,"/users/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. POST,"/users").hasRole("admin")
+                        .requestMatchers(HttpMethod. PUT,"/users/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. DELETE,"/users/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. GET,"/categories/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. POST,"/categories").hasRole("admin")
+                        .requestMatchers(HttpMethod. PUT,"/categories/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. DELETE,"/categories/**").hasRole("admin")
                 )
                 .httpBasic(httpBasic -> {});
 
@@ -36,7 +53,7 @@ public class SecurityConfig {
         UserDetails user = User.builder()
                 .username("administrador")
                 .password(passwordEncoder().encode("password"))
-                .roles("ADMIN")
+                .roles("admin")
                 .build();
 
         return new InMemoryUserDetailsManager(user);

@@ -3,8 +3,11 @@ package com.digitalhouse.proyectofinal.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.digitalhouse.proyectofinal.entity.CategoryEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
@@ -16,16 +19,14 @@ import lombok.RequiredArgsConstructor;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final CategoryService categoryService;
 
-    public List<CarEntity> getAll() {
+    public Page<CarEntity> getAll(int page, int size) {
 
-        List<CarEntity> cars = carRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
 
-        if (cars.isEmpty()) {
-            throw new RuntimeException("Cars not found");
-        }
+        return  carRepository.findAll(pageable);
 
-        return cars;
     }
 
     public CarEntity getById(Long id) {
@@ -39,9 +40,9 @@ public class CarService {
         return car.get();
     }
 
-    public List<CarEntity> findByTransmission(String transmission) {
+    public Page<CarEntity> findByTransmission(String transmission, Pageable pageable) {
 
-        List<CarEntity> cars = carRepository.findByTransmissionType(transmission);
+        Page<CarEntity> cars = carRepository.findByTransmissionType(transmission,pageable);
 
         if (cars.isEmpty()) {
             throw new RuntimeException("Cars not found");
@@ -49,6 +50,34 @@ public class CarService {
 
         return cars;
 
+    }
+
+    public CarEntity update(Long id, CarEntity carEntity){
+
+        Optional<CarEntity> car = carRepository.findById(id);
+
+        if (car.isEmpty()){
+            throw new RuntimeException("Car not found");
+        }
+
+        CarEntity carFound = car.get();
+        carFound.setSerialNumber(carEntity.getSerialNumber());
+        carFound.setBrand(carEntity.getBrand());
+        carFound.setName(carEntity.getName());
+        carFound.setModel(carEntity.getModel());
+        carFound.setStatus(carEntity.getStatus());
+        carFound.setFuelType(carEntity.getFuelType());
+        carFound.setTransmissionType(carEntity.getTransmissionType());
+        carFound.setReserveCost(carEntity.getReserveCost());
+        carFound.setImages(carEntity.getImages());
+
+        CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
+
+        carFound.setCategory(category);
+
+        carRepository.save(carFound);
+
+        return carFound;
     }
 
     public void deleteById(Long id) {
@@ -64,11 +93,6 @@ public class CarService {
     }
 
     public CarEntity create(CarEntity carEntity) {
-
-        if (carEntity == null) {
-            throw new RuntimeException("Car cannot empty");
-        }
-
         return carRepository.save(carEntity);
     }
 

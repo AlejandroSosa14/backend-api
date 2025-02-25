@@ -1,11 +1,16 @@
 package com.digitalhouse.proyectofinal;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
+import com.digitalhouse.proyectofinal.entity.CategoryEntity;
+import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
+import com.digitalhouse.proyectofinal.repository.CategoryRepository;
+import com.digitalhouse.proyectofinal.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 
@@ -15,10 +20,47 @@ public class ProyectofinalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectofinalApplication.class, args);
 	}
-	
+
 	@Bean
-	CommandLineRunner init(CarRepository carRepository) {
+	CommandLineRunner init(UserRepository userRepository, CategoryRepository categoryRepository, CarRepository carRepository) {
 		return args -> {
+
+			userRepository.save(
+					new UserEntity(
+							null,
+							"jose",
+							"administrator@gmail.com",
+							new BCryptPasswordEncoder().encode("pass123"),
+							"admin",
+							true)
+
+			);
+
+			userRepository.save(
+					new UserEntity(
+							null,
+							"maria",
+							"customer1@gmail.com",
+							new BCryptPasswordEncoder().encode("123456789"),
+							"customer",
+							true)
+
+			);
+
+			userRepository.save(
+					new UserEntity(
+							null,
+							"alfonso",
+							"customer2@gmail.com",
+							new BCryptPasswordEncoder().encode("789456123"),
+							"customer",
+							false)
+
+			);
+
+			categoryRepository.save(new CategoryEntity(null,"Crossover",null,null));
+			categoryRepository.save(new CategoryEntity(null,"Sedan","https://","Description"));
+
 			carRepository.save(
 					new CarEntity(
 							null,
@@ -39,10 +81,12 @@ public class ProyectofinalApplication {
 									"    \"http://localhost:8181/images/nissan/5.jpg\",\n" +
 									"    \"http://localhost:8181/images/nissan/6.jpg\"\n" +
 									"  ]\n" +
-									"}"));
+									"}",
+							new CategoryEntity(1L,"Crossover",null,null)));
 
 			carRepository.save(
 					new CarEntity(
+							null,
 							"00000000000000002",
 							"NISSAN",
 							"Versa",
@@ -50,9 +94,10 @@ public class ProyectofinalApplication {
 							false,
 							"gasolina",
 							"estandar",
-							new BigDecimal(450)));
+							new BigDecimal(450),
+							null,
+					new CategoryEntity(2L,"Sedan","https://","Description")));
 		};
 	}
-
 
 }
