@@ -43,9 +43,14 @@ public class CategoryService {
             throw new RuntimeException("Category not found");
         }
 
-        categoryRepository.save(categoryEntity);
+        CategoryEntity categoryFound = category.get();
+        categoryFound.setName(categoryEntity.getName());
+        categoryFound.setDescription(categoryEntity.getDescription());
+        categoryFound.setImage(categoryEntity.getImage());
 
-        return categoryEntity;
+        categoryRepository.save(categoryFound);
+
+        return categoryFound;
 
     }
 

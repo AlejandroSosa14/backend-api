@@ -42,18 +42,25 @@ public class UserService {
 
     public UserEntity update(Long id, UserEntity userEntity){
 
-        Optional<UserEntity> userFound = userRepository.findById(id);
+        Optional<UserEntity> user = userRepository.findById(id);
 
-        if (userFound.isEmpty()){
+        if (user.isEmpty()){
             throw new RuntimeException("User not found");
         }
 
+        UserEntity userFound = user.get();
+        userFound.setName(userEntity.getName());
+        userFound.setEmail(userEntity.getEmail());
+
         String passwordEncode = passwordEncoder.encode(userEntity.getPassword());
-        userEntity.setPassword(passwordEncode);
+        userFound.setPassword(passwordEncode);
 
-        userRepository.save(userEntity);
+        userFound.setType(userEntity.getType());
+        userFound.setActive(userEntity.getActive());
 
-        return userEntity;
+        userRepository.save(userFound);
+
+        return userFound;
 
     }
 

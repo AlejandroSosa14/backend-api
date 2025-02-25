@@ -118,14 +118,14 @@ public class CarController {
 
     }
 
-    @PutMapping("/{serial}")
+    @PutMapping("/{id}")
     @Operation(summary = "Actualiza un auto", description = "Actualiza auto en el sistema.")
     @ApiResponse(responseCode = "200", description = "Auto actualizado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la actualizacion del auto")
-    public ResponseEntity<?> update(@PathVariable(name = "serial") String serialNumber, @Valid @RequestBody CarEntity car) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @Valid @RequestBody CarEntity car) {
 
         try {
-            CarEntity carEntityUpdate = carService.update(serialNumber,car);
+            CarEntity carEntityUpdate = carService.update(id,car);
             return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
         }catch (RuntimeException r){
 

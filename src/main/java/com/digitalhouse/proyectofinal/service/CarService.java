@@ -3,6 +3,7 @@ package com.digitalhouse.proyectofinal.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.digitalhouse.proyectofinal.entity.CategoryEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final CategoryService categoryService;
 
     public Page<CarEntity> getAll(int page, int size) {
 
@@ -50,16 +52,32 @@ public class CarService {
 
     }
 
-    public CarEntity update(String serialNumber, CarEntity carEntity){
+    public CarEntity update(Long id, CarEntity carEntity){
 
-        Optional<CarEntity> carFound = carRepository.findBySerialNumber(serialNumber);
+        Optional<CarEntity> car = carRepository.findById(id);
 
-        if (carFound.isEmpty()){
-            throw new RuntimeException("Cars not found");
+        if (car.isEmpty()){
+            throw new RuntimeException("Car not found");
         }
 
-        carRepository.save(carEntity);
-        return carEntity;
+        CarEntity carFound = car.get();
+        carFound.setSerialNumber(carEntity.getSerialNumber());
+        carFound.setBrand(carEntity.getBrand());
+        carFound.setName(carEntity.getName());
+        carFound.setModel(carEntity.getModel());
+        carFound.setStatus(carEntity.getStatus());
+        carFound.setFuelType(carEntity.getFuelType());
+        carFound.setTransmissionType(carEntity.getTransmissionType());
+        carFound.setReserveCost(carEntity.getReserveCost());
+        carFound.setImages(carEntity.getImages());
+
+        CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
+
+        carFound.setCategory(category);
+
+        carRepository.save(carFound);
+
+        return carFound;
     }
 
     public void deleteById(Long id) {

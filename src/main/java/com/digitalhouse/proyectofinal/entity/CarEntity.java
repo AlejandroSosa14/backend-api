@@ -74,7 +74,8 @@ public class CarEntity {
     @JsonRawValue
     private String images;
 
-    @OneToOne
+    @ManyToOne
     @Setter
+    @NotNull(message = "Category required")
     private CategoryEntity category;
 }

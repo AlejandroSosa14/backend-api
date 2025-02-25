@@ -10,7 +10,7 @@
 			"name": "car",
 			"item": [
 				{
-					"name": "Getcars",
+					"name": "getCars",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -193,7 +193,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"serialNumber\": \"00000000000000002\",\r\n    \"brand\": \"NISSAN\",\r\n    \"name\": \"Versa\",\r\n    \"model\": 2018,\r\n    \"status\": false,\r\n    \"fuelType\": \"gasolina\",\r\n    \"transmissionType\": \"estandar\",\r\n    \"reserveCost\": 450.00,\r\n    \"images\": null\r\n}",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"serialNumber\": \"10000000000000002\",\r\n    \"brand\": \"NISSAN\",\r\n    \"name\": \"Versa\",\r\n    \"model\": 2018,\r\n    \"status\": true,\r\n    \"fuelType\": \"gasolina\",\r\n    \"transmissionType\": \"automatico\",\r\n    \"reserveCost\": 350.00,\r\n    \"images\": null,\r\n    \"category\": {\r\n        \"id\": 2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -201,14 +201,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/cars/00000000000000002",
+							"raw": "localhost:8181/cars/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
 								"cars",
-								"00000000000000002"
+								"2"
 							]
 						}
 					},
@@ -291,14 +291,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/users/4",
+							"raw": "localhost:8181/users/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
 								"users",
-								"4"
+								"3"
 							]
 						}
 					},
