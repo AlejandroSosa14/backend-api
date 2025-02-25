@@ -76,5 +76,5 @@ public class CarEntity {
 
     @OneToOne
     @Setter
-    private Category category;
+    private CategoryEntity category;
 }

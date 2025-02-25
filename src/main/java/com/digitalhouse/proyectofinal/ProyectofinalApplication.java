@@ -1,7 +1,7 @@
 package com.digitalhouse.proyectofinal;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
-import com.digitalhouse.proyectofinal.entity.Category;
+import com.digitalhouse.proyectofinal.entity.CategoryEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
 import com.digitalhouse.proyectofinal.repository.CategoryRepository;
@@ -58,8 +58,8 @@ public class ProyectofinalApplication {
 
 			);
 
-			categoryRepository.save(new Category(null,"Crossover",null));
-			categoryRepository.save(new Category(null,"Sedan","Description"));
+			categoryRepository.save(new CategoryEntity(null,"Crossover",null,null));
+			categoryRepository.save(new CategoryEntity(null,"Sedan","https://","Description"));
 
 			carRepository.save(
 					new CarEntity(
@@ -82,7 +82,7 @@ public class ProyectofinalApplication {
 									"    \"http://localhost:8181/images/nissan/6.jpg\"\n" +
 									"  ]\n" +
 									"}",
-							new Category(1L,"Crossover",null)));
+							new CategoryEntity(1L,"Crossover",null,null)));
 
 			carRepository.save(
 					new CarEntity(
@@ -96,7 +96,7 @@ public class ProyectofinalApplication {
 							"estandar",
 							new BigDecimal(450),
 							null,
-					new Category(2L,"Sedan","Description")));
+					new CategoryEntity(2L,"Sedan","https://","Description")));
 		};
 	}
 

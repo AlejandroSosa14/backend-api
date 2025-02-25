@@ -38,6 +38,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod. POST,"/users").hasRole("admin")
                         .requestMatchers(HttpMethod. PUT,"/users/**").hasRole("admin")
                         .requestMatchers(HttpMethod. DELETE,"/users/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. GET,"/categories/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. POST,"/categories").hasRole("admin")
+                        .requestMatchers(HttpMethod. PUT,"/categories/**").hasRole("admin")
+                        .requestMatchers(HttpMethod. DELETE,"/categories/**").hasRole("admin")
                 )
                 .httpBasic(httpBasic -> {});
 

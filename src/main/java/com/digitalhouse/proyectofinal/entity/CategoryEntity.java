@@ -10,15 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Category {
+public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Name required")
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String name;
+
+    private String image;
 
     @Column(nullable = true, length = 500)
     private String description;
