@@ -58,8 +58,8 @@ public class ProyectofinalApplication {
 
 			);
 
-			categoryRepository.save(new CategoryEntity(null,"Crossover",null,null));
-			categoryRepository.save(new CategoryEntity(null,"Sedan","https://","Description"));
+			categoryRepository.save(new CategoryEntity(null,"Crossover","Description"));
+			categoryRepository.save(new CategoryEntity(null,"Sedan","Description"));
 
 			carRepository.save(
 					new CarEntity(
@@ -82,7 +82,7 @@ public class ProyectofinalApplication {
 									"    \"http://localhost:8181/images/nissan/6.jpg\"\n" +
 									"  ]\n" +
 									"}",
-							new CategoryEntity(1L,"Crossover",null,null)));
+							new CategoryEntity(1L,"Crossover","Description")));
 
 			carRepository.save(
 					new CarEntity(
@@ -96,7 +96,7 @@ public class ProyectofinalApplication {
 							"estandar",
 							new BigDecimal(450),
 							null,
-					new CategoryEntity(2L,"Sedan","https://","Description")));
+					new CategoryEntity(2L,"Sedan","Description")));
 		};
 	}
 
