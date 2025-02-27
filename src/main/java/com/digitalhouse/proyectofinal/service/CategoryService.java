@@ -46,7 +46,7 @@ public class CategoryService {
         CategoryEntity categoryFound = category.get();
         categoryFound.setName(categoryEntity.getName());
         categoryFound.setDescription(categoryEntity.getDescription());
-        categoryFound.setImage(categoryEntity.getImage());
+//        categoryFound.setImage(categoryEntity.getImage());
 
         categoryRepository.save(categoryFound);
 

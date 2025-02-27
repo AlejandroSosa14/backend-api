@@ -22,8 +22,8 @@ public class CategoryEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Setter
-    private String image;
+//    @Setter
+//    private String image;
 
     @Setter
     @Column(nullable = true, length = 500)

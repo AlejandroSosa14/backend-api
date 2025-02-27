@@ -26,7 +26,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("cars")
+@RequestMapping("/api/cars")
 @Tag(name = "Car Controller", description = "API para la gestión de automóviles")
 @Validated
 public class CarController {
