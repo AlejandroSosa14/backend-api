@@ -2,6 +2,8 @@ package com.digitalhouse.proyectofinal.service;
 
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.repository.UserRepository;
+import jakarta.mail.AuthenticationFailedException;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     public List<UserEntity> getAllUser(){
         return userRepository.findAll();
@@ -37,7 +40,13 @@ public class UserService {
 
         userEntity.setPassword(passwordEncode);
 
-        return userRepository.save(userEntity);
+        try {
+            emailService.sendEmail(userEntity.getEmail(), "test", "content");
+            return userRepository.save(userEntity);
+        }catch (MessagingException me){
+            throw new RuntimeException(me.getMessage());
+        }
+
     }
 
     public UserEntity update(Long id, UserEntity userEntity){
