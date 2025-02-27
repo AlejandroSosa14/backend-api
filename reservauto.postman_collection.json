@@ -226,13 +226,13 @@
 							"type": "basic",
 							"basic": [
 								{
-									"key": "password",
-									"value": "password",
+									"key": "username",
+									"value": "administrador",
 									"type": "string"
 								},
 								{
-									"key": "username",
-									"value": "administrador",
+									"key": "password",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -606,12 +606,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password",
+							"value": "123456789",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "administrador",
+							"value": "maria",
 							"type": "string"
 						}
 					]
