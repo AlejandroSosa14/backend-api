@@ -241,7 +241,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"mariana\",\r\n    \"email\" : \"customer3@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"mariana\",\r\n    \"email\" : \"jcolvera_s@outlook.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -597,6 +597,40 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "administrador",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8181/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
