@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("categories")
+@RequestMapping("api/categories")
 @RequiredArgsConstructor
 @Tag(name = "Category Controller", description = "API para la gestión de categorías")
 public class CategoryController {
