@@ -1,9 +1,10 @@
-package com.digitalhouse.proyectofinal.service;
+package com.digitalhouse.proyectofinal.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.digitalhouse.proyectofinal.entity.CategoryEntity;
+import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
+import com.digitalhouse.proyectofinal.service.ICarService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CarService {
+public class CarService implements ICarService {
 
     private final CarRepository carRepository;
     private final CategoryService categoryService;
@@ -29,35 +30,38 @@ public class CarService {
 
     }
 
-    public CarEntity getById(Long id) {
+    public CarEntity getById(Long id) throws ResourceNotFoundException {
 
         Optional<CarEntity> car = carRepository.findById(id);
 
         if (car.isEmpty()) {
-            throw new RuntimeException("Car not found");
+            //throw new RuntimeException("Car not found");
+            throw new ResourceNotFoundException("Car with ID " + id + " not found");
         }
 
         return car.get();
     }
 
-    public Page<CarEntity> findByTransmission(String transmission, Pageable pageable) {
+    public Page<CarEntity> findByTransmission(String transmission, Pageable pageable) throws ResourceNotFoundException  {
 
         Page<CarEntity> cars = carRepository.findByTransmissionType(transmission,pageable);
 
         if (cars.isEmpty()) {
-            throw new RuntimeException("Cars not found");
+            //throw new RuntimeException("Cars not found");
+            throw new ResourceNotFoundException("No cars found with transmission type: " + transmission);
         }
 
         return cars;
 
     }
 
-    public CarEntity update(Long id, CarEntity carEntity){
+    public CarEntity update(Long id, CarEntity carEntity) throws ResourceNotFoundException {
 
         Optional<CarEntity> car = carRepository.findById(id);
 
         if (car.isEmpty()){
-            throw new RuntimeException("Car not found");
+            //throw new RuntimeException("Car not found");
+            throw new ResourceNotFoundException("Car with ID " + id + " not found");
         }
 
         CarEntity carFound = car.get();
@@ -80,12 +84,13 @@ public class CarService {
         return carFound;
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Long id) throws ResourceNotFoundException {
 
         Optional<CarEntity> car = carRepository.findById(id);
 
         if (car.isEmpty()) {
-            throw new RuntimeException("Car not found");
+            //throw new RuntimeException("Car not found");
+            throw new ResourceNotFoundException("Car with ID " + id + " not found");
         }
 
         carRepository.deleteById(id);

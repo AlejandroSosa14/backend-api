@@ -1,4 +1,4 @@
-package com.digitalhouse.proyectofinal.service;
+package com.digitalhouse.proyectofinal.service.impl;
 
 import jakarta.mail.AuthenticationFailedException;
 import jakarta.mail.MessagingException;
