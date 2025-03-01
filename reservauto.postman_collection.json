@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7a5bbefd-3af4-4b48-9b7f-cd78f7d0f432",
+		"_postman_id": "d4bef7be-2572-48d7-b0ae-12049250cda2",
 		"name": "reservauto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21617585",
-		"_collection_link": "https://planetary-flare-311351.postman.co/workspace/Pruebas-RapidRide~ebdaebf0-e9d2-4bf5-a67f-2596b23183d4/collection/21617585-7a5bbefd-3af4-4b48-9b7f-cd78f7d0f432?action=share&source=collection_link&creator=21617585"
+		"_exporter_id": "36205139"
 	},
 	"item": [
 		{
@@ -230,16 +229,11 @@
 					"name": "createUser",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "pass123",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "jose",
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTdG9yZUFwcCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoiam9zZSIsImF1dGhvcml0aWVzIjoiUk9MRV9hZG1pbiIsImlhdCI6MTc0MDc5ODY4NCwiZXhwIjoxNzQwNzk4ODA0fQ.Xn9rwe7aQAGK-myCDvblmh1pE6uFuVDFdosiY9lxpKA",
 									"type": "string"
 								}
 							]
@@ -248,7 +242,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"fccapa54@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"jcolvera_s@outlook.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -623,12 +617,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "1234",
+							"value": "pass123",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "frankCcapa1",
+							"value": "jose",
 							"type": "string"
 						}
 					]
@@ -644,6 +638,50 @@
 					"path": [
 						"api",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getToken",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"jose\",\r\n    \"email\" : \"administrator@gmail.com\",\r\n    \"password\" : \"pass123\",\r\n    \"type\" : \"admin\",\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8181/api/user/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"user",
+						"authenticate"
 					]
 				}
 			},
