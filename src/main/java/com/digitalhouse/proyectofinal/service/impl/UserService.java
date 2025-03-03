@@ -124,6 +124,15 @@ public class UserService implements IUserService {
             throw new ResourceNotFoundException("User with ID " + id + " not found");
         }
 
+        if (user.get().getType().contains("admin")){
+           Long adminCount = userRepository.countByTypeContains("admin");
+
+            if (adminCount <= 1) {
+                throw new ConflictException("Cannot delete admin user. At least one admin user must exist.");
+            }
+
+        }
+
         userRepository.deleteById(id);
 
     }
