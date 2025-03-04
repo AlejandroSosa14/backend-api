@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.controller;
 
 import com.digitalhouse.proyectofinal.service.ICarService;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -145,11 +146,11 @@ public class CarController {
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Actualiza un auto", description = "Actualiza auto en el sistema.")
     @ApiResponse(responseCode = "200", description = "Auto actualizado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la actualizacion del auto")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @Valid @RequestBody CarEntity car) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestPart("car") @Valid @JsonProperty("car") String carJson, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws JsonProcessingException {
 
 //        try {
 //            CarEntity carEntityUpdate = carService.update(id,car);
@@ -162,7 +163,10 @@ public class CarController {
 //
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 //        }
-        CarEntity carEntityUpdate = carService.update(id, car);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
+
+        CarEntity carEntityUpdate = carService.update(id, carEntity,files);
         return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
 
     }

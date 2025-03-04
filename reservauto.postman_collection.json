@@ -206,13 +206,22 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"serialNumber\": \"10000000000000002\",\r\n    \"brand\": \"NISSAN\",\r\n    \"name\": \"Versa\",\r\n    \"model\": 2018,\r\n    \"status\": true,\r\n    \"fuelType\": \"gasolina\",\r\n    \"transmissionType\": \"automatico\",\r\n    \"reserveCost\": 350.00,\r\n    \"images\": null,\r\n    \"category\": {\r\n        \"id\": 2\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "car",
+									"value": "{\n    \"id\": 2,\n    \"serialNumber\": \"10000000000000002\",\n    \"brand\": \"NISSAN\",\n    \"name\": \"Versa\",\n    \"model\": 2018,\n    \"status\": true,\n    \"fuelType\": \"gasolina\",\n    \"transmissionType\": \"automatico\",\n    \"reserveCost\": 350.00,\n    \"images\": null,\n    \"category\": {\n        \"id\": 2\n    }\n}",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/2.jpg",
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/3.jpg"
+									]
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "localhost:8181/api/cars/3",

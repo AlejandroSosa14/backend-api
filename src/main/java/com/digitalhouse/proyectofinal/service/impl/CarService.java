@@ -30,7 +30,7 @@ public class CarService implements ICarService {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        return  carRepository.findAll(pageable);
+        return carRepository.findAll(pageable);
 
     }
 
@@ -46,9 +46,9 @@ public class CarService implements ICarService {
         return car.get();
     }
 
-    public Page<CarEntity> findByTransmission(String transmission, Pageable pageable) throws ResourceNotFoundException  {
+    public Page<CarEntity> findByTransmission(String transmission, Pageable pageable) throws ResourceNotFoundException {
 
-        Page<CarEntity> cars = carRepository.findByTransmissionType(transmission,pageable);
+        Page<CarEntity> cars = carRepository.findByTransmissionType(transmission, pageable);
 
         if (cars.isEmpty()) {
             //throw new RuntimeException("Cars not found");
@@ -59,33 +59,43 @@ public class CarService implements ICarService {
 
     }
 
-    public CarEntity update(Long id, CarEntity carEntity) throws ResourceNotFoundException {
+    public CarEntity update(Long id, CarEntity carEntity, List<MultipartFile> files) throws ResourceNotFoundException {
 
         Optional<CarEntity> car = carRepository.findById(id);
 
-        if (car.isEmpty()){
+        if (car.isEmpty()) {
             //throw new RuntimeException("Car not found");
             throw new ResourceNotFoundException("Car with ID " + id + " not found");
         }
 
-        CarEntity carFound = car.get();
-        carFound.setSerialNumber(carEntity.getSerialNumber());
-        carFound.setBrand(carEntity.getBrand());
-        carFound.setName(carEntity.getName());
-        carFound.setModel(carEntity.getModel());
-        carFound.setStatus(carEntity.getStatus());
-        carFound.setFuelType(carEntity.getFuelType());
-        carFound.setTransmissionType(carEntity.getTransmissionType());
-        carFound.setReserveCost(carEntity.getReserveCost());
-        carFound.setImages(carEntity.getImages());
+        try {
 
-        CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
+            String filesUpload = fileUploadService.uploadFiles(files);
+            carEntity.setImages(filesUpload);
 
-        carFound.setCategory(category);
+            CarEntity carFound = car.get();
+            carFound.setSerialNumber(carEntity.getSerialNumber());
+            carFound.setBrand(carEntity.getBrand());
+            carFound.setName(carEntity.getName());
+            carFound.setModel(carEntity.getModel());
+            carFound.setStatus(carEntity.getStatus());
+            carFound.setFuelType(carEntity.getFuelType());
+            carFound.setTransmissionType(carEntity.getTransmissionType());
+            carFound.setReserveCost(carEntity.getReserveCost());
+            carFound.setImages(filesUpload);
 
-        carRepository.save(carFound);
+            CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
 
-        return carFound;
+            carFound.setCategory(category);
+
+            carRepository.save(carFound);
+
+            return carFound;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void deleteById(Long id) throws ResourceNotFoundException {
@@ -103,11 +113,11 @@ public class CarService implements ICarService {
 
     public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
 
-        try{
+        try {
             String filesUpload = fileUploadService.uploadFiles(files);
             carEntity.setImages(filesUpload);
             return carRepository.save(carEntity);
-        }catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
