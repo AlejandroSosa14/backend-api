@@ -229,11 +229,16 @@
 					"name": "createUser",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "basic",
+							"basic": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTdG9yZUFwcCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoiam9zZSIsImF1dGhvcml0aWVzIjoiUk9MRV9hZG1pbiIsImlhdCI6MTc0MDc5ODY4NCwiZXhwIjoxNzQwNzk4ODA0fQ.Xn9rwe7aQAGK-myCDvblmh1pE6uFuVDFdosiY9lxpKA",
+									"key": "password",
+									"value": "pass123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -242,7 +247,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"jcolvera_s@outlook.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"jcolvera_s@outlook.com\",\r\n    \"password\" : \"12345678\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -349,7 +354,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTdG9yZUFwcCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoiam9zZSIsImF1dGhvcml0aWVzIjoiUk9MRV9hZG1pbiIsImlhdCI6MTc0MTA0MzU4NSwiZXhwIjoxNzQxMDQzNzA1fQ.tT8PqXJt7iUC-3zNZDPzttMrBgB08Zwtht-uZiYIaQE",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTdG9yZUFwcCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoiam9zZSIsImF1dGhvcml0aWVzIjoiUk9MRV9hZG1pbiIsImlhdCI6MTc0MTA0Nzk4MywiZXhwIjoxNzQxMDQ4MTAzfQ.3oq4Y8vZqGRkqLcqsCz1iCbBz1wQcfDc4u3ZrnbmRr0",
 									"type": "string"
 								}
 							]
@@ -357,7 +362,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/users/1",
+							"raw": "localhost:8181/api/users/4",
 							"host": [
 								"localhost"
 							],
@@ -365,7 +370,7 @@
 							"path": [
 								"api",
 								"users",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -677,6 +682,41 @@
 						"api",
 						"user",
 						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "email",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8181/api/email/jcolvera_s@outlook.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"email",
+						"jcolvera_s@outlook.com"
 					]
 				}
 			},
