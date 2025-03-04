@@ -1,6 +1,8 @@
 package com.digitalhouse.proyectofinal.controller;
 
 import com.digitalhouse.proyectofinal.service.ICarService;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,11 @@ import com.digitalhouse.proyectofinal.entity.CarEntity;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -126,13 +132,15 @@ public class CarController {
         return ResponseEntity.ok(carService.getById(id));
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Registrar un auto", description = "Guarda un nuevo auto en el sistema.")
     @ApiResponse(responseCode = "201", description = "Auto creado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la creación del auto")
-    public ResponseEntity<?> create(@Valid @RequestBody CarEntity car) {
+    public ResponseEntity<?> create(@RequestPart("car") @Valid @JsonProperty("car") String carJson, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
 
-        CarEntity carEntitySave = carService.create(car);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
+        CarEntity carEntitySave = carService.create(carEntity, files);
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
 
     }

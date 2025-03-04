@@ -1,5 +1,7 @@
 package com.digitalhouse.proyectofinal.service.impl;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import com.digitalhouse.proyectofinal.entity.CategoryEntity;
@@ -14,6 +16,7 @@ import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class CarService implements ICarService {
 
     private final CarRepository carRepository;
     private final CategoryService categoryService;
+    private final FileUploadService fileUploadService;
 
     public Page<CarEntity> getAll(int page, int size) {
 
@@ -97,8 +101,16 @@ public class CarService implements ICarService {
 
     }
 
-    public CarEntity create(CarEntity carEntity) {
-        return carRepository.save(carEntity);
+    public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
+
+        try{
+            String filesUpload = fileUploadService.uploadFiles(files);
+            carEntity.setImages(filesUpload);
+            return carRepository.save(carEntity);
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

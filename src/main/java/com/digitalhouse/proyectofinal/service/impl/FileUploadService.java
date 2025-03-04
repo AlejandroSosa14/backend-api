@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileUploadService {
 
-    private final String UPLOAD_DIR = "src/main/resources/static/images";
+    private final String UPLOAD_DIR = "src/main/resources/static/uploads";
     private final ObjectMapper objectMapper;
 
     public String uploadFiles(List<MultipartFile> files) throws IOException {
@@ -30,7 +30,7 @@ public class FileUploadService {
                 Path path = Paths.get(UPLOAD_DIR, uniqueFileName);
 
                 Files.copy(file.getInputStream(), path);
-                fileNames.add("http://localhost:8181/images/" + uniqueFileName);
+                fileNames.add("http://localhost:8181/uploads/" + uniqueFileName);
             }
         }
 
