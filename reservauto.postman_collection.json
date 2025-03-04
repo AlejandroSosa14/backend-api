@@ -154,13 +154,22 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"serialNumber\": \"00000000000000003\",\r\n    \"brand\": \"Toyota\",\r\n    \"name\": \"Corolla\",\r\n    \"model\": 2017,\r\n    \"status\": true,\r\n    \"fuelType\": \"Gasolina\",\r\n    \"transmissionType\": \"estandar\",\r\n    \"reserveCost\": 500.00,\r\n    \"category\":{\r\n        \"id\": 2\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "car",
+									"value": "{\n    \"serialNumber\": \"00000000000000003\",\n    \"brand\": \"Toyota\",\n    \"name\": \"Corolla\",\n    \"model\": 2017,\n    \"status\": true,\n    \"fuelType\": \"Gasolina\",\n    \"transmissionType\": \"estandar\",\n    \"reserveCost\": 500.00,\n    \"category\":{\n        \"id\": 2\n    }\n}",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/2.jpg",
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/3.jpg"
+									]
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "localhost:8181/api/cars",
