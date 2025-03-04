@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4d762d4c-a70d-44aa-8d06-a96148f16835",
+		"_postman_id": "8786d431-fae7-4306-968c-ac9819d3e38b",
 		"name": "reservauto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36205139"
@@ -717,6 +717,53 @@
 						"api",
 						"email",
 						"jcolvera_s@outlook.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadFile",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/4.jpg",
+								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/5.jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8181/api/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"upload"
 					]
 				}
 			},

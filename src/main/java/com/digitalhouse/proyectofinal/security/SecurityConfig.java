@@ -39,8 +39,10 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/email/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/user/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/upload").hasRole("admin")
                         .requestMatchers(HttpMethod.GET, "/api/login").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/cars/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/cars/**").hasRole("admin")
