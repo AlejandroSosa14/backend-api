@@ -59,6 +59,8 @@ public class EmailService {
                 - Account Status: Active
                 
                 Please keep your credentials safe. If you did not register this account, contact support immediately.
+                
+                Link for login: http://localhost:8181/login
         
                 Best regards,
                 The Team

@@ -72,6 +72,8 @@ public class UserService implements IUserService {
         
         Please keep your credentials safe. If you did not register this account, contact support immediately.
 
+        Link for login: http://localhost:8181/login
+
         Best regards,
         The Team
         """.formatted(savedUser.getName(), savedUser.getEmail());
