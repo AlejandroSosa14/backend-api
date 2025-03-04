@@ -85,14 +85,8 @@ public class UserController {
     @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     public void deleteById( @Parameter(description = "ID del usuario a eliminar", example = "1") @PathVariable Long id) {
 
-        try {
-            UserEntity userFound = userService.getById(id);
-            userService.deleteById(userFound.getId());
-            //ResponseEntity.ok();
-            ResponseEntity.noContent();
-        } catch (RuntimeException r) {
-            ResponseEntity.notFound();
-        }
+        UserEntity userFound = userService.getById(id);
+        userService.deleteById(userFound.getId());
 
     }
 
