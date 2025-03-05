@@ -1,5 +1,9 @@
 package com.digitalhouse.proyectofinal.controller;
 
+import com.digitalhouse.proyectofinal.service.ICarService;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,17 +15,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
-import com.digitalhouse.proyectofinal.service.CarService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,32 +38,41 @@ import java.util.Map;
 @Validated
 public class CarController {
 
-    private final CarService carService;
+    private final ICarService carService;
 
     @GetMapping
     @Operation(summary = "Obtener todos los autos", description = "Devuelve una lista de todos los autos registrados en el sistema.")
     @ApiResponse(responseCode = "200", description = "Lista de autos obtenida exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
 
-        try {
+//        try {
+//
+//            Page<CarEntity> carsPage = carService.getAll(page, size);
+//
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("content", carsPage.getContent());
+//            response.put("totalPages", carsPage.getTotalPages());
+//            response.put("totalElements", carsPage.getTotalElements());
+//            response.put("currentPage", page);
+//
+//            return ResponseEntity.ok().body(response);
+//        } catch (RuntimeException r) {
+//
+//            Map<String,String> error = new HashMap<>();
+//
+//            error.put("error",r.getMessage());
+//
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+//        }
+        Page<CarEntity> carsPage = carService.getAll(page, size);
 
-            Page<CarEntity> carsPage = carService.getAll(page, size);
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", carsPage.getContent());
+        response.put("totalPages", carsPage.getTotalPages());
+        response.put("totalElements", carsPage.getTotalElements());
+        response.put("currentPage", page);
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("content", carsPage.getContent());
-            response.put("totalPages", carsPage.getTotalPages());
-            response.put("totalElements", carsPage.getTotalElements());
-            response.put("currentPage", page);
-
-            return ResponseEntity.ok().body(response);
-        } catch (RuntimeException r) {
-
-            Map<String,String> error = new HashMap<>();
-
-            error.put("error",r.getMessage());
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-        }
+        return ResponseEntity.ok().body(response);
 
     }
 
@@ -69,23 +85,32 @@ public class CarController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        try {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<CarEntity> cars = carService.findByTransmission(transmission, pageable);
+//        try {
+//            Pageable pageable = PageRequest.of(page, size);
+//            Page<CarEntity> cars = carService.findByTransmission(transmission, pageable);
+//
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("content", cars.getContent());
+//            response.put("totalPages", cars.getTotalPages());
+//            response.put("totalElements", cars.getTotalElements());
+//            response.put("currentPage", page);
+//
+//            return ResponseEntity.ok().body(response);
+//
+//        } catch (RuntimeException r) {
+//            Map<String, String> error = new HashMap<>();
+//            error.put("error", r.getMessage());
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+//        }
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CarEntity> cars = carService.findByTransmission(transmission, pageable);
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("content", cars.getContent());
-            response.put("totalPages", cars.getTotalPages());
-            response.put("totalElements", cars.getTotalElements());
-            response.put("currentPage", page);
-
-            return ResponseEntity.ok().body(response);
-
-        } catch (RuntimeException r) {
-            Map<String, String> error = new HashMap<>();
-            error.put("error", r.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", cars.getContent());
+        response.put("totalPages", cars.getTotalPages());
+        response.put("totalElements", cars.getTotalElements());
+        response.put("currentPage", page);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{id}")
@@ -95,46 +120,54 @@ public class CarController {
     public ResponseEntity<?> getById(
             @Parameter(description = "ID del auto a buscar", example = "1") @PathVariable Long id) {
 
-        try {
-            return ResponseEntity.ok().body(carService.getById(id));
-        } catch (RuntimeException r) {
-
-            Map<String,String> error = new HashMap<>();
-
-            error.put("error",r.getMessage());
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-        }
+//        try {
+//            return ResponseEntity.ok().body(carService.getById(id));
+//        } catch (RuntimeException r) {
+//
+//            Map<String,String> error = new HashMap<>();
+//
+//            error.put("error",r.getMessage());
+//
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+//        }
+        return ResponseEntity.ok(carService.getById(id));
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Registrar un auto", description = "Guarda un nuevo auto en el sistema.")
     @ApiResponse(responseCode = "201", description = "Auto creado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la creación del auto")
-    public ResponseEntity<?> create(@Valid @RequestBody CarEntity car) {
+    public ResponseEntity<?> create(@RequestPart("car") @Valid @JsonProperty("car") String carJson, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
 
-        CarEntity carEntitySave = carService.create(car);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
+        CarEntity carEntitySave = carService.create(carEntity, files);
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Actualiza un auto", description = "Actualiza auto en el sistema.")
     @ApiResponse(responseCode = "200", description = "Auto actualizado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
     @ApiResponse(responseCode = "400", description = "Error en la actualizacion del auto")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @Valid @RequestBody CarEntity car) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestPart("car") @Valid @JsonProperty("car") String carJson, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws JsonProcessingException {
 
-        try {
-            CarEntity carEntityUpdate = carService.update(id,car);
-            return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
-        }catch (RuntimeException r){
+//        try {
+//            CarEntity carEntityUpdate = carService.update(id,car);
+//            return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
+//        }catch (RuntimeException r){
+//
+//            Map<String,String> error = new HashMap<>();
+//
+//            error.put("error",r.getMessage());
+//
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+//        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
 
-            Map<String,String> error = new HashMap<>();
-
-            error.put("error",r.getMessage());
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-        }
+        CarEntity carEntityUpdate = carService.update(id, carEntity,files);
+        return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
 
     }
 
@@ -142,15 +175,18 @@ public class CarController {
     @Operation(summary = "Eliminar un auto", description = "Elimina un auto del sistema según su ID.")
     @ApiResponse(responseCode = "200", description = "Auto eliminado exitosamente")
     @ApiResponse(responseCode = "404", description = "Auto no encontrado")
-    public void deleteById(@Parameter(description = "ID del auto a eliminar", example = "1") @PathVariable Long id) {
+    public ResponseEntity<Void>  deleteById(@Parameter(description = "ID del auto a eliminar", example = "1") @PathVariable Long id) {
 
-        try {
-            carService.deleteById(id);
-            ResponseEntity.ok();
-            // ResponseEntity.noContent().build();
-        } catch (RuntimeException r) {
-            ResponseEntity.notFound();
-        }
+//        try {
+//            carService.deleteById(id);
+//            ResponseEntity.ok();
+//            // ResponseEntity.noContent().build();
+//        } catch (RuntimeException r) {
+//            ResponseEntity.notFound();
+//        }
+        carService.deleteById(id);
+        return ResponseEntity.noContent().build();
+
 
     }
 

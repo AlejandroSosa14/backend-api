@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d8381f08-5b3f-4fdc-8912-d68e7b7436a2",
+		"_postman_id": "8786d431-fae7-4306-968c-ac9819d3e38b",
 		"name": "reservauto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36205139"
@@ -18,12 +18,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/cars?page=0&size=2",
+							"raw": "localhost:8181/api/cars?page=0&size=2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"cars"
 							],
 							"query": [
@@ -49,12 +50,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/cars/transmission/automatico?page=0&size=2",
+							"raw": "localhost:8181/api/cars/transmission/automatico?page=0&size=2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"cars",
 								"transmission",
 								"automatico"
@@ -82,12 +84,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/cars/2",
+							"raw": "localhost:8181/api/cars/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"cars",
 								"2"
 							]
@@ -103,12 +106,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -116,12 +119,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/cars/2",
+							"raw": "localhost:8181/api/cars/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"cars",
 								"2"
 							]
@@ -137,12 +141,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -150,21 +154,31 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"serialNumber\": \"00000000000000003\",\r\n    \"brand\": \"Toyota\",\r\n    \"name\": \"Corolla\",\r\n    \"model\": 2017,\r\n    \"status\": true,\r\n    \"fuelType\": \"Gasolina\",\r\n    \"transmissionType\": \"estandar\",\r\n    \"reserveCost\": 500.00\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "car",
+									"value": "{\n    \"serialNumber\": \"00000000000000003\",\n    \"brand\": \"Toyota\",\n    \"name\": \"Corolla\",\n    \"model\": 2017,\n    \"status\": true,\n    \"fuelType\": \"Gasolina\",\n    \"transmissionType\": \"estandar\",\n    \"reserveCost\": 500.00,\n    \"category\":{\n        \"id\": 2\n    }\n}",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/2.jpg",
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/3.jpg"
+									]
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "localhost:8181/cars",
+							"raw": "localhost:8181/api/cars",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"cars"
 							]
 						}
@@ -179,12 +193,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -192,23 +206,33 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"serialNumber\": \"10000000000000002\",\r\n    \"brand\": \"NISSAN\",\r\n    \"name\": \"Versa\",\r\n    \"model\": 2018,\r\n    \"status\": true,\r\n    \"fuelType\": \"gasolina\",\r\n    \"transmissionType\": \"automatico\",\r\n    \"reserveCost\": 350.00,\r\n    \"images\": null,\r\n    \"category\": {\r\n        \"id\": 2\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "car",
+									"value": "{\n    \"id\": 2,\n    \"serialNumber\": \"10000000000000002\",\n    \"brand\": \"NISSAN\",\n    \"name\": \"Versa\",\n    \"model\": 2018,\n    \"status\": true,\n    \"fuelType\": \"gasolina\",\n    \"transmissionType\": \"automatico\",\n    \"reserveCost\": 350.00,\n    \"images\": null,\n    \"category\": {\n        \"id\": 2\n    }\n}",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/2.jpg",
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/3.jpg"
+									]
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "localhost:8181/cars/2",
+							"raw": "localhost:8181/api/cars/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"cars",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -227,12 +251,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -241,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"mariana\",\r\n    \"email\" : \"customer3@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"jcolvera_s@outlook.com\",\r\n    \"password\" : \"12345678\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -249,12 +273,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/users",
+							"raw": "localhost:8181/api/users",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -269,12 +294,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -283,7 +308,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"mariana\",\r\n    \"email\" : \"customer4@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"administrator\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"fccapa5@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -291,12 +316,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/users/3",
+							"raw": "localhost:8181/api/users/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"users",
 								"3"
 							]
@@ -312,12 +338,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -325,12 +351,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/users",
+							"raw": "localhost:8181/api/users",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"users"
 							]
 						}
@@ -341,16 +368,11 @@
 					"name": "deleteUser",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "administrador",
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTdG9yZUFwcCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoiam9zZSIsImF1dGhvcml0aWVzIjoiUk9MRV9hZG1pbiIsImlhdCI6MTc0MTA0Nzk4MywiZXhwIjoxNzQxMDQ4MTAzfQ.3oq4Y8vZqGRkqLcqsCz1iCbBz1wQcfDc4u3ZrnbmRr0",
 									"type": "string"
 								}
 							]
@@ -358,12 +380,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/users/4",
+							"raw": "localhost:8181/api/users/4",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"users",
 								"4"
 							]
@@ -379,12 +402,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -392,14 +415,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/users/4",
+							"raw": "localhost:8181/api/users/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"users",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -417,13 +441,13 @@
 							"type": "basic",
 							"basic": [
 								{
-									"key": "password",
-									"value": "password",
+									"key": "username",
+									"value": "jose",
 									"type": "string"
 								},
 								{
-									"key": "username",
-									"value": "administrador",
+									"key": "password",
+									"value": "pass123",
 									"type": "string"
 								}
 							]
@@ -440,12 +464,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/categories",
+							"raw": "localhost:8181/api/categories",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"categories"
 							]
 						}
@@ -460,12 +485,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -474,7 +499,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"familiar\",\r\n    \"image\" : \"https://example.com/car5.jpg\",\r\n    \"description\" : null\r\n}",
+							"raw": "{\r\n    \"name\" : \"familiar2\",\r\n    \"image\" : \"https://example.com/car5.jpg\",\r\n    \"description\" : null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -482,12 +507,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/categories/2",
+							"raw": "localhost:8181/api/categories/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"categories",
 								"2"
 							]
@@ -503,12 +529,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -516,12 +542,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/categories",
+							"raw": "localhost:8181/api/categories",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"categories"
 							]
 						}
@@ -536,12 +563,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -549,12 +576,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/categories/3",
+							"raw": "localhost:8181/api/categories/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"categories",
 								"3"
 							]
@@ -570,12 +598,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "pass123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "administrador",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -583,20 +611,181 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/categories/3",
+							"raw": "localhost:8181/api/categories/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8181",
 							"path": [
+								"api",
 								"categories",
-								"3"
+								"1"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8181/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getToken",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"jose\",\r\n    \"email\" : \"administrator@gmail.com\",\r\n    \"password\" : \"pass123\",\r\n    \"type\" : \"admin\",\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8181/api/user/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"user",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "email",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8181/api/email/jcolvera_s@outlook.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"email",
+						"jcolvera_s@outlook.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadFile",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/4.jpg",
+								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/5.jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8181/api/upload",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
