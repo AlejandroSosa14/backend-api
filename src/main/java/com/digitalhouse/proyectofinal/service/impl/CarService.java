@@ -1,12 +1,14 @@
 package com.digitalhouse.proyectofinal.service.impl;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import com.digitalhouse.proyectofinal.entity.CategoryEntity;
 import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
 import com.digitalhouse.proyectofinal.service.ICarService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -82,7 +84,10 @@ public class CarService implements ICarService {
             carFound.setFuelType(carEntity.getFuelType());
             carFound.setTransmissionType(carEntity.getTransmissionType());
             carFound.setReserveCost(carEntity.getReserveCost());
-            carFound.setImages(filesUpload);
+            // Convierte la lista en un JSON string si hay múltiples imágenes
+            ObjectMapper objectMapper = new ObjectMapper();
+            String imagesJson = objectMapper.writeValueAsString(Collections.singletonList(filesUpload));
+            carFound.setImages(imagesJson);
 
             CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
 

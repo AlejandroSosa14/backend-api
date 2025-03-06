@@ -71,15 +71,7 @@ public class ProyectofinalApplication {
                             true,
                             "gasolina",
                             "automatico",
-                            new BigDecimal(1000),
-                                    "[\n" +
-                                    "    \"http://localhost:8181/images/nissan/1.jpg\",\n" +
-                                    "    \"http://localhost:8181/images/nissan/2.jpg\",\n" +
-                                    "    \"http://localhost:8181/images/nissan/3.jpg\",\n" +
-                                    "    \"http://localhost:8181/images/nissan/4.jpg\",\n" +
-                                    "    \"http://localhost:8181/images/nissan/5.jpg\",\n" +
-                                    "    \"http://localhost:8181/images/nissan/6.jpg\"\n" +
-                                    "  ]\n",
+                            new BigDecimal(1000),null,
                             new CategoryEntity(1L, "Crossover", "Description")));
 
             carRepository.save(

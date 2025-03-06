@@ -18,6 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -25,15 +31,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(new JwtValidatorFilter(), BasicAuthenticationFilter.class);
-        http.addFilterAfter(new JwtGeneratorFilter(), BasicAuthenticationFilter.class);
+        //http.addFilterBefore(new JwtValidatorFilter(), BasicAuthenticationFilter.class);
+        //http.addFilterAfter(new JwtGeneratorFilter(), BasicAuthenticationFilter.class);
 
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configuración de CORS
                 .csrf(csrf -> csrf.disable())
-                .cors(Customizer.withDefaults())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                ).addFilterBefore(new JwtValidatorFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JwtGeneratorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         // Permitir acceso sin autenticación a Swagger
                         .requestMatchers(
@@ -58,11 +65,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/categories").hasRole("admin")
                         .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("admin")
                         .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("admin")
-                )
-                .httpBasic(httpBasic -> {
-                });
+                ) .httpBasic(Customizer.withDefaults());
+                /*.httpBasic(httpBasic -> {
+                });*/
 
         return http.build();
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Permitir solicitudes desde el frontend
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // Headers permitidos
+        configuration.setAllowCredentials(true); // Permitir credenciales como cookies o Authorization header
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Aplicar configuración a todas las rutas
+        return source;
     }
 
 //    @Bean
