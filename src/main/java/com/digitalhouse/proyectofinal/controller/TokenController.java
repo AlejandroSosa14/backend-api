@@ -52,7 +52,8 @@ public class TokenController {
                             .map(GrantedAuthority::getAuthority)
                             .collect(Collectors.joining(",")))
                     .issuedAt(new Date())
-                    .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 2)) // 2 minutos
+                    //.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 2)) // 2 minutos
+                    .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas
                     .signWith(secretKey)
                     .compact();
 

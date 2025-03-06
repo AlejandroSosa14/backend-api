@@ -38,7 +38,8 @@ public class JwtGeneratorFilter extends OncePerRequestFilter {
                     .claim("authorities", authentication.getAuthorities().stream().map(
                             GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
                     .issuedAt(new Date())
-                    .expiration(new Date((new Date()).getTime() + 1000 * 60 * 2))
+                    //.expiration(new Date((new Date()).getTime() + 1000 * 60 * 2))
+                    .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas
                     .signWith(secretKey).compact();
 
             response.setHeader(Constants.JWT_HEADER, jwt);
