@@ -30,7 +30,7 @@ public class ProyectofinalApplication {
                             null,
                             "jose",
                             "administrator@gmail.com",
-                            new BCryptPasswordEncoder().encode("pass123"),
+                            new BCryptPasswordEncoder().encode("pass12334565"),
                             "admin",
                             true)
 
@@ -87,7 +87,197 @@ public class ProyectofinalApplication {
                             new BigDecimal(450),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000003",
+                            "NISSAN",
+                            "X Trail Verza",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1320),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000004",
+                            "NISSAN",
+                            "Versa",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(450),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000005",
+                            "NISZA",
+                            "X Trail New",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1000),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000006",
+                            "AUDI",
+                            "Venom",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(1820),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000007",
+                            "HYUNDAI",
+                            "Hyundai Tucson",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1820),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000008",
+                            "Honda",
+                            "Honda Civic",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(1852),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+
+            //////
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000009",
+                            "Ford",
+                            "Ford Mustang",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1000),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000010",
+                            "NISSAN",
+                            "Versa",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(450),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000011",
+                            "Volvo",
+                            "Volvo XC60",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1320),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000012",
+                            "Tesla",
+                            "Tesla Model S",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(450),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000013",
+                            "BMW",
+                            "BMW X5",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1000),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000014",
+                            "Porsche",
+                            "Porsche 911",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(1820),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000015",
+                            "LEXUS",
+                            "Lexus RX",
+                            2025,
+                            true,
+                            "gasolina",
+                            "automatico",
+                            new BigDecimal(1820),null,
+                            new CategoryEntity(1L, "Crossover", "Description")));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000016",
+                            "KIA",
+                            "Kia Sportage",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(1852),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description")));
+
         };
+
     }
 
 }
