@@ -1,6 +1,7 @@
 package com.digitalhouse.proyectofinal.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -61,21 +62,37 @@ public class CarService implements ICarService {
 
     }
 
-    public CarEntity update(Long id, CarEntity carEntity, List<MultipartFile> files) throws ResourceNotFoundException {
-
+    public CarEntity update(Long id, CarEntity carEntity, List<MultipartFile> files, List<String> removedImages) throws ResourceNotFoundException {
         Optional<CarEntity> car = carRepository.findById(id);
 
         if (car.isEmpty()) {
-            //throw new RuntimeException("Car not found");
             throw new ResourceNotFoundException("Car with ID " + id + " not found");
         }
 
         try {
-
-            String filesUpload = fileUploadService.uploadFiles(files);
-            carEntity.setImages(filesUpload);
-
             CarEntity carFound = car.get();
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Obtener las imágenes actuales desde la base de datos (convertidas de JSON a lista)
+            List<String> currentImages = carFound.getImages() != null
+                    ? objectMapper.readValue(carFound.getImages(), List.class)
+                    : new ArrayList<>();
+
+            // Eliminar las imágenes seleccionadas por el usuario
+            if (removedImages != null) {
+                currentImages.removeAll(removedImages);
+            }
+
+            // Subir nuevas imágenes y agregarlas a la lista existente
+            if (files != null && !files.isEmpty()) {
+                List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(files));
+                currentImages.addAll(newFilesUploads);
+            }
+
+            // Guardar la nueva lista de imágenes en formato JSON
+            carFound.setImages(objectMapper.writeValueAsString(currentImages));
+
+            // Actualizar los demás datos del auto
             carFound.setSerialNumber(carEntity.getSerialNumber());
             carFound.setBrand(carEntity.getBrand());
             carFound.setName(carEntity.getName());
@@ -84,25 +101,17 @@ public class CarService implements ICarService {
             carFound.setFuelType(carEntity.getFuelType());
             carFound.setTransmissionType(carEntity.getTransmissionType());
             carFound.setReserveCost(carEntity.getReserveCost());
-            // Convierte la lista en un JSON string si hay múltiples imágenes
-            ObjectMapper objectMapper = new ObjectMapper();
-            String imagesJson = objectMapper.writeValueAsString(Collections.singletonList(filesUpload));
-            carFound.setImages(imagesJson);
 
             CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
-
             carFound.setCategory(category);
 
             carRepository.save(carFound);
-
             return carFound;
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error processing image JSON", e);
         }
-
     }
-
     public void deleteById(Long id) throws ResourceNotFoundException {
 
         Optional<CarEntity> car = carRepository.findById(id);
@@ -116,16 +125,32 @@ public class CarService implements ICarService {
 
     }
 
-    public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
+//    public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
+//
+//        try {
+//            String filesUpload = fileUploadService.uploadFiles(files);
+//            carEntity.setImages(filesUpload);
+//            return carRepository.save(carEntity);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
+public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> uploadedFiles = new ArrayList<>();
 
-        try {
-            String filesUpload = fileUploadService.uploadFiles(files);
-            carEntity.setImages(filesUpload);
-            return carRepository.save(carEntity);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (files != null && !files.isEmpty()) {
+            uploadedFiles = objectMapper.readValue(fileUploadService.uploadFiles(files), List.class);
         }
 
+        carEntity.setImages(objectMapper.writeValueAsString(uploadedFiles));
+        return carRepository.save(carEntity);
+    } catch (IOException e) {
+        throw new RuntimeException(e);
     }
+}
+
 
 }

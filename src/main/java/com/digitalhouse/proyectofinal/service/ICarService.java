@@ -12,7 +12,7 @@ public interface ICarService {
     Page<CarEntity> getAll (int page, int size);
     CarEntity getById (Long id);
     Page<CarEntity> findByTransmission(String transmission, Pageable pageable);
-    CarEntity update(Long id, CarEntity carEntity, List<MultipartFile> files);
+    CarEntity update(Long id, CarEntity carEntity, List<MultipartFile> files, List<String> removedImages);
     void deleteById(Long id);
     CarEntity create(CarEntity carEntity, List<MultipartFile> files) throws IOException;
 
