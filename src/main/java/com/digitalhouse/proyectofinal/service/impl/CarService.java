@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.digitalhouse.proyectofinal.entity.CategoryEntity;
 import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
 import com.digitalhouse.proyectofinal.service.ICarService;
+import com.digitalhouse.proyectofinal.specification.CarSpecification;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,7 +63,7 @@ public class CarService implements ICarService {
 
     }
 
-    public CarEntity update(Long id, CarEntity carEntity,String dir, List<MultipartFile> files, List<String> removedImages) throws ResourceNotFoundException {
+    public CarEntity update(Long id, CarEntity carEntity, String dir, List<MultipartFile> files, List<String> removedImages) throws ResourceNotFoundException {
         Optional<CarEntity> car = carRepository.findById(id);
 
         if (car.isEmpty()) {
@@ -85,7 +86,7 @@ public class CarService implements ICarService {
 
             // Subir nuevas imágenes y agregarlas a la lista existente
             if (files != null && !files.isEmpty()) {
-                List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(dir,files));
+                List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(dir, files));
                 currentImages.addAll(newFilesUploads);
             }
 
@@ -112,6 +113,7 @@ public class CarService implements ICarService {
             throw new RuntimeException("Error processing image JSON", e);
         }
     }
+
     public void deleteById(Long id) throws ResourceNotFoundException {
 
         Optional<CarEntity> car = carRepository.findById(id);
@@ -125,7 +127,7 @@ public class CarService implements ICarService {
 
     }
 
-//    public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
+    //    public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
 //
 //        try {
 //            String filesUpload = fileUploadService.uploadFiles(files);
@@ -136,21 +138,24 @@ public class CarService implements ICarService {
 //        }
 //
 //    }
-public CarEntity create(CarEntity carEntity,String dir, List<MultipartFile> files) {
-    try {
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<String> uploadedFiles = new ArrayList<>();
+    public CarEntity create(CarEntity carEntity, String dir, List<MultipartFile> files) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<String> uploadedFiles = new ArrayList<>();
 
-        if (files != null && !files.isEmpty()) {
-            uploadedFiles = objectMapper.readValue(fileUploadService.uploadFiles(dir,files), List.class);
+            if (files != null && !files.isEmpty()) {
+                uploadedFiles = objectMapper.readValue(fileUploadService.uploadFiles(dir, files), List.class);
+            }
+
+            carEntity.setImages(objectMapper.writeValueAsString(uploadedFiles));
+            return carRepository.save(carEntity);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        carEntity.setImages(objectMapper.writeValueAsString(uploadedFiles));
-        return carRepository.save(carEntity);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
     }
-}
 
+    public List<CarEntity> searchCars(String search) {
+        return carRepository.findAll(CarSpecification.search(search));
+    }
 
 }

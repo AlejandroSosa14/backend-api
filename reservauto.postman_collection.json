@@ -42,40 +42,6 @@
 					"response": []
 				},
 				{
-					"name": "findCarByTransmission",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8181/api/cars/transmission/automatico?page=0&size=2",
-							"host": [
-								"localhost"
-							],
-							"port": "8181",
-							"path": [
-								"api",
-								"cars",
-								"transmission",
-								"automatico"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "getCar",
 					"request": {
 						"auth": {
@@ -625,6 +591,75 @@
 								"api",
 								"categories",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "filter",
+			"item": [
+				{
+					"name": "findCar",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/search?query=automatico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "automatico"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByTransmission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/transmission/automatico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"transmission",
+								"automatico"
 							]
 						}
 					},

@@ -41,7 +41,7 @@ import java.util.Map;
 public class CarController {
 
     private final ICarService carService;
-    private static  final String PATH_UPLOAD = "cars/";
+    private static final String PATH_UPLOAD = "cars/";
 
     @GetMapping
     @Operation(summary = "Obtener todos los autos", description = "Devuelve una lista de todos los autos registrados en el sistema.")
@@ -98,7 +98,7 @@ public class CarController {
 
         ObjectMapper objectMapper = new ObjectMapper();
         CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
-        CarEntity carEntitySave = carService.create(carEntity,PATH_UPLOAD, files);
+        CarEntity carEntitySave = carService.create(carEntity, PATH_UPLOAD, files);
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
 
     }
@@ -150,7 +150,7 @@ public class CarController {
                     ? objectMapper.readValue(removedImagesJson, List.class)
                     : Collections.emptyList();
 
-            CarEntity carEntityUpdate = carService.update(id, carEntity,PATH_UPLOAD, files, removedImages);
+            CarEntity carEntityUpdate = carService.update(id, carEntity, PATH_UPLOAD, files, removedImages);
             return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
 
         } catch (JsonProcessingException e) {
@@ -159,16 +159,22 @@ public class CarController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error inesperado al actualizar el auto: " + e.getMessage());
         }
     }
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar un auto", description = "Elimina un auto del sistema según su ID.")
     @ApiResponse(responseCode = "200", description = "Auto eliminado exitosamente")
     @ApiResponse(responseCode = "404", description = "Auto no encontrado")
-    public ResponseEntity<Void>  deleteById(@Parameter(description = "ID del auto a eliminar", example = "1") @PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@Parameter(description = "ID del auto a eliminar", example = "1") @PathVariable Long id) {
 
         carService.deleteById(id);
         return ResponseEntity.noContent().build();
 
+    }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchCars(@RequestParam("query") String query) {
+        List<CarEntity> cars = carService.searchCars(query);
+        return ResponseEntity.ok(cars);
     }
 
 }
