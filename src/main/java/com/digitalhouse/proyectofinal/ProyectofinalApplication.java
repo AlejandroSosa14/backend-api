@@ -32,7 +32,7 @@ public class ProyectofinalApplication {
                             "administrator@gmail.com",
                             new BCryptPasswordEncoder().encode("pass12334565"),
                             "admin",
-                            true)
+                            true,null)
 
             );
 
@@ -43,7 +43,7 @@ public class ProyectofinalApplication {
                             "customer1@gmail.com",
                             new BCryptPasswordEncoder().encode("123456789"),
                             "customer",
-                            true)
+                            true,null)
 
             );
 
@@ -54,7 +54,7 @@ public class ProyectofinalApplication {
                             "customer2@gmail.com",
                             new BCryptPasswordEncoder().encode("789456123"),
                             "customer",
-                            false)
+                            false,null)
 
             );
 

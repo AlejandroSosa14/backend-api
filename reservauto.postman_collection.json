@@ -274,7 +274,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"fccapa5@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"fccapa5@gmail.com\",\r\n    \"password\" : \"2147483647\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -605,24 +605,12 @@
 					"name": "findCar",
 					"request": {
 						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "pass12334565",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "jose",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8181/api/cars/search?query=automatico&page=0&size=10&sort=serialNumber,asc",
+							"raw": "http://localhost:8181/api/cars/search?query=automatico 1000.00&page=0&size=10&sort=serialNumber,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -636,7 +624,7 @@
 							"query": [
 								{
 									"key": "query",
-									"value": "automatico"
+									"value": "automatico 1000.00"
 								},
 								{
 									"key": "page",
@@ -657,28 +645,6 @@
 				},
 				{
 					"name": "findByTransmission",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8181/api/cars/transmission/automatico",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8181",
-							"path": [
-								"api",
-								"cars",
-								"transmission",
-								"automatico"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findByAniosAndActive",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -856,6 +822,50 @@
 					"path": [
 						"api",
 						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setFavorites",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pass12334565",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jose",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"administrator@gmail.com\",\r\n    \"serialNumber\": \"00000000000000002\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8181/api/users/favorites",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"api",
+						"users",
+						"favorites"
 					]
 				}
 			},

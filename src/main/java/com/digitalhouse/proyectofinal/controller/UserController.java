@@ -1,5 +1,7 @@
 package com.digitalhouse.proyectofinal.controller;
 
+import com.digitalhouse.proyectofinal.dto.FavoriteRequest;
+import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -88,6 +90,11 @@ public class UserController {
         UserEntity userFound = userService.getById(id);
         userService.deleteById(userFound.getId());
 
+    }
+
+    @PostMapping("/favorites")
+    public void setFavorites(@RequestBody FavoriteRequest favoriteRequest){
+        userService.setFavorites(favoriteRequest);
     }
 
 }

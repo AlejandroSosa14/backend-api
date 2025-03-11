@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,5 +43,14 @@ public class UserEntity {
     @Setter
     @NotNull
     private Boolean active;
+
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id")
+    )
+    @Setter
+    private Set<CarEntity> favorites = new HashSet<>();
+
 
 }
