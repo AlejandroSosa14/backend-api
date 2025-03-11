@@ -62,7 +62,7 @@ public class CarService implements ICarService {
 
     }
 
-    public CarEntity update(Long id, CarEntity carEntity, List<MultipartFile> files, List<String> removedImages) throws ResourceNotFoundException {
+    public CarEntity update(Long id, CarEntity carEntity,String dir, List<MultipartFile> files, List<String> removedImages) throws ResourceNotFoundException {
         Optional<CarEntity> car = carRepository.findById(id);
 
         if (car.isEmpty()) {
@@ -85,7 +85,7 @@ public class CarService implements ICarService {
 
             // Subir nuevas imágenes y agregarlas a la lista existente
             if (files != null && !files.isEmpty()) {
-                List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(files));
+                List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(dir,files));
                 currentImages.addAll(newFilesUploads);
             }
 
@@ -136,13 +136,13 @@ public class CarService implements ICarService {
 //        }
 //
 //    }
-public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
+public CarEntity create(CarEntity carEntity,String dir, List<MultipartFile> files) {
     try {
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> uploadedFiles = new ArrayList<>();
 
         if (files != null && !files.isEmpty()) {
-            uploadedFiles = objectMapper.readValue(fileUploadService.uploadFiles(files), List.class);
+            uploadedFiles = objectMapper.readValue(fileUploadService.uploadFiles(dir,files), List.class);
         }
 
         carEntity.setImages(objectMapper.writeValueAsString(uploadedFiles));

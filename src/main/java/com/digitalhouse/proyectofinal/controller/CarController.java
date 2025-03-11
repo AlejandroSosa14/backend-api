@@ -41,6 +41,7 @@ import java.util.Map;
 public class CarController {
 
     private final ICarService carService;
+    private static  final String PATH_UPLOAD = "cars/";
 
     @GetMapping
     @Operation(summary = "Obtener todos los autos", description = "Devuelve una lista de todos los autos registrados en el sistema.")
@@ -97,7 +98,7 @@ public class CarController {
 
         ObjectMapper objectMapper = new ObjectMapper();
         CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
-        CarEntity carEntitySave = carService.create(carEntity, files);
+        CarEntity carEntitySave = carService.create(carEntity,PATH_UPLOAD, files);
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
 
     }
@@ -149,7 +150,7 @@ public class CarController {
                     ? objectMapper.readValue(removedImagesJson, List.class)
                     : Collections.emptyList();
 
-            CarEntity carEntityUpdate = carService.update(id, carEntity, files, removedImages);
+            CarEntity carEntityUpdate = carService.update(id, carEntity,PATH_UPLOAD, files, removedImages);
             return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
 
         } catch (JsonProcessingException e) {

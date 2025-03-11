@@ -17,20 +17,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileUploadService {
 
-    private final String UPLOAD_DIR = "src/main/resources/static/uploads";
+    private final String UPLOAD_DIR = "src/main/resources/static/uploads/";
     private final ObjectMapper objectMapper;
 
-    public String uploadFiles(List<MultipartFile> files) throws IOException {
+    public String uploadFiles(String dir,List<MultipartFile> files) throws IOException {
 
         List<String> fileNames = new ArrayList<>();
 
         if (files != null) {
             for (MultipartFile file : files) {
                 String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                Path path = Paths.get(UPLOAD_DIR, uniqueFileName);
+                Path path = Paths.get(UPLOAD_DIR + dir, uniqueFileName);
 
                 Files.copy(file.getInputStream(), path);
-                fileNames.add("http://localhost:8181/uploads/" + uniqueFileName);
+                fileNames.add("http://localhost:8181/uploads/" + dir + uniqueFileName);
             }
         }
 
