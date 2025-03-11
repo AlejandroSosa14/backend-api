@@ -15,5 +15,5 @@ public interface ICarService {
     CarEntity update(Long id, CarEntity carEntity, String dir, List<MultipartFile> files, List<String> removedImages);
     void deleteById(Long id);
     CarEntity create(CarEntity carEntity,String dir, List<MultipartFile> files) throws IOException;
-    List<CarEntity> searchCars(String search);
+    Page<CarEntity> searchCars(String search,  Pageable pageable);
 }

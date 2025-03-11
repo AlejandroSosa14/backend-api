@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -172,9 +173,20 @@ public class CarController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchCars(@RequestParam("query") String query) {
-        List<CarEntity> cars = carService.searchCars(query);
-        return ResponseEntity.ok(cars);
+    public ResponseEntity<?> searchCars(@RequestParam("query") String query, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,@RequestParam(defaultValue = "id,asc") String sort) {
+
+        String[] sortParams = sort.split(",");
+        Sort sortRequest = Sort.by(Sort.Direction.fromString(sortParams[1]), sortParams[0]);
+        Pageable pageable = PageRequest.of(page, size, sortRequest);
+        Page<CarEntity> cars = carService.searchCars(query, pageable);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", cars.getContent());
+        response.put("totalPages", cars.getTotalPages());
+        response.put("totalElements", cars.getTotalElements());
+        response.put("currentPage", cars.getNumber());
+
+        return ResponseEntity.ok(response);
     }
 
 }

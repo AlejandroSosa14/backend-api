@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.digitalhouse.proyectofinal.entity.CarEntity;
@@ -154,8 +155,9 @@ public class CarService implements ICarService {
         }
     }
 
-    public List<CarEntity> searchCars(String search) {
-        return carRepository.findAll(CarSpecification.search(search));
+    public Page<CarEntity> searchCars(String search, Pageable pageable) {
+        Specification<CarEntity> spec = CarSpecification.search(search);
+        return carRepository.findAll(spec, pageable);
     }
 
 }
