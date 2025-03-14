@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,6 +189,29 @@ public class CarController {
         response.put("currentPage", cars.getNumber());
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/post")
+    public ResponseEntity<?> findByDates(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate start,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-M-d") LocalDate end,
+            @RequestParam(defaultValue = "postDate,asc") String sort,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        String[] sortParams = sort.split(",");
+        Sort.Direction direction = Sort.Direction.fromString(sortParams[1]);
+        Sort sortBy = Sort.by(direction, sortParams[0]);
+
+        Pageable pageable = PageRequest.of(page, size,sortBy);
+        Page<CarEntity> cars = carService.findByStartDateBetween(start,end, pageable);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", cars.getContent());
+        response.put("totalPages", cars.getTotalPages());
+        response.put("totalElements", cars.getTotalElements());
+        response.put("currentPage", page);
+        return ResponseEntity.ok().body(response);
     }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ICarService {
@@ -16,4 +17,5 @@ public interface ICarService {
     void deleteById(Long id);
     CarEntity create(CarEntity carEntity,String dir, List<MultipartFile> files) throws IOException;
     Page<CarEntity> searchCars(String search,  Pageable pageable);
+    Page<CarEntity> findByStartDateBetween(LocalDate start, LocalDate end, Pageable pageable);
 }

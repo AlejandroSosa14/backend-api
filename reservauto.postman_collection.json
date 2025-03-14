@@ -664,6 +664,64 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "findByDates",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/post?start=2025-1-1&end=2025-2-15&page=0&size=10&sort=postDate,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"post"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "2025-1-1"
+								},
+								{
+									"key": "end",
+									"value": "2025-2-15"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "postDate,asc"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

@@ -1,6 +1,7 @@
 package com.digitalhouse.proyectofinal.service.impl;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -158,6 +159,17 @@ public class CarService implements ICarService {
     public Page<CarEntity> searchCars(String search, Pageable pageable) {
         Specification<CarEntity> spec = CarSpecification.search(search);
         return carRepository.findAll(spec, pageable);
+    }
+
+    public Page<CarEntity> findByStartDateBetween(LocalDate start, LocalDate end, Pageable pageable){
+
+        Page<CarEntity> cars = carRepository.findByPostDateBetween(start, end,pageable);
+
+        if (cars.isEmpty()) {
+            throw new ResourceNotFoundException("No cars found");
+        }
+
+        return cars;
     }
 
 }
