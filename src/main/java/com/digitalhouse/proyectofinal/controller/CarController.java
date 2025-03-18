@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.jsonwebtoken.lang.Collections;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -105,35 +106,6 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
 
     }
-
-//    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    @Operation(summary = "Actualiza un auto", description = "Actualiza auto en el sistema.")
-//    @ApiResponse(responseCode = "200", description = "Auto actualizado exitosamente", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CarEntity.class)))
-//    @ApiResponse(responseCode = "400", description = "Error en la actualización del auto")
-//    public ResponseEntity<?> update(
-//            @PathVariable(name = "id") Long id,
-//            @RequestParam("car") String carJson,  // Cambio aquí
-//            @RequestPart(value = "files", required = false) List<MultipartFile> files
-//    ) {
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//            objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-//
-//            // Convertimos el JSON de String a un objeto Java
-//            CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
-//
-//            // Llamamos al servicio para actualizar el auto
-//            CarEntity carEntityUpdate = carService.update(id, carEntity, files);
-//            return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
-//
-//        } catch (JsonProcessingException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al procesar el JSON del auto: " + e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error inesperado al actualizar el auto: " + e.getMessage());
-//        }
-//    }
-
     @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(
             @PathVariable(name = "id") Long id,
@@ -145,6 +117,7 @@ public class CarController {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+            objectMapper.registerModule(new JavaTimeModule()); // IMPORTANTE para serializar LocalDate
 
             CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
 
@@ -152,7 +125,7 @@ public class CarController {
             List<String> removedImages = removedImagesJson != null && !removedImagesJson.isEmpty()
                     ? objectMapper.readValue(removedImagesJson, List.class)
                     : Collections.emptyList();
-
+            // Llamamos al servicio de actualización incluyendo la fecha
             CarEntity carEntityUpdate = carService.update(id, carEntity, PATH_UPLOAD, files, removedImages);
             return ResponseEntity.status(HttpStatus.OK).body(carEntityUpdate);
 

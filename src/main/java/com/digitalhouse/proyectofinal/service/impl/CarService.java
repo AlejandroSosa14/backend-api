@@ -12,6 +12,7 @@ import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
 import com.digitalhouse.proyectofinal.service.ICarService;
 import com.digitalhouse.proyectofinal.specification.CarSpecification;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -75,27 +76,23 @@ public class CarService implements ICarService {
         try {
             CarEntity carFound = car.get();
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
 
-            // Obtener las imágenes actuales desde la base de datos (convertidas de JSON a lista)
             List<String> currentImages = carFound.getImages() != null
                     ? objectMapper.readValue(carFound.getImages(), List.class)
                     : new ArrayList<>();
 
-            // Eliminar las imágenes seleccionadas por el usuario
             if (removedImages != null) {
                 currentImages.removeAll(removedImages);
             }
 
-            // Subir nuevas imágenes y agregarlas a la lista existente
             if (files != null && !files.isEmpty()) {
                 List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(dir, files));
                 currentImages.addAll(newFilesUploads);
             }
 
-            // Guardar la nueva lista de imágenes en formato JSON
             carFound.setImages(objectMapper.writeValueAsString(currentImages));
 
-            // Actualizar los demás datos del auto
             carFound.setSerialNumber(carEntity.getSerialNumber());
             carFound.setBrand(carEntity.getBrand());
             carFound.setName(carEntity.getName());
@@ -104,6 +101,7 @@ public class CarService implements ICarService {
             carFound.setFuelType(carEntity.getFuelType());
             carFound.setTransmissionType(carEntity.getTransmissionType());
             carFound.setReserveCost(carEntity.getReserveCost());
+            carFound.setPostDate(carEntity.getPostDate());
 
             CategoryEntity category = categoryService.getById(carEntity.getCategory().getId());
             carFound.setCategory(category);
@@ -129,17 +127,6 @@ public class CarService implements ICarService {
 
     }
 
-    //    public CarEntity create(CarEntity carEntity, List<MultipartFile> files) {
-//
-//        try {
-//            String filesUpload = fileUploadService.uploadFiles(files);
-//            carEntity.setImages(filesUpload);
-//            return carRepository.save(carEntity);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
     public CarEntity create(CarEntity carEntity, String dir, List<MultipartFile> files) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();

@@ -61,8 +61,8 @@ public class ProyectofinalApplication {
 
             );
 
-            categoryRepository.save(new CategoryEntity(null, "Crossover", "Description"));
-            categoryRepository.save(new CategoryEntity(null, "Sedan", "Description"));
+            categoryRepository.save(new CategoryEntity(null, "Crossover", "Description", null));
+            categoryRepository.save(new CategoryEntity(null, "Sedan", "Description", null));
 
             carRepository.save(
                     new CarEntity(
@@ -76,7 +76,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1000),
                             null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.now()));
 
             carRepository.save(
@@ -91,7 +91,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(450),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2025,1,10)));
 
             carRepository.save(
@@ -105,7 +105,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1320),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description",null),
                             LocalDate.of(2025,1,22)));
 
             carRepository.save(
@@ -120,7 +120,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(450),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2025,2,12)));
 
             carRepository.save(
@@ -134,7 +134,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1000),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.of(2025,2,15)));
 
             carRepository.save(
@@ -149,7 +149,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(1820),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2024,12,16)));
 
             carRepository.save(
@@ -163,7 +163,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1820),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.of(2024,12,2)));
 
             carRepository.save(
@@ -178,7 +178,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(1852),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2024,11,28)));
 
             //////
@@ -193,7 +193,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1000),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.of(2024,12,5)));
 
             carRepository.save(
@@ -208,7 +208,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(450),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2025,1,10)));
 
             carRepository.save(
@@ -222,7 +222,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1320),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.of(2024,11,7)));
 
             carRepository.save(
@@ -237,7 +237,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(450),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2024,12,12)));
             carRepository.save(
                     new CarEntity(
@@ -250,7 +250,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1000),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.of(2024,11,5)));
 
             carRepository.save(
@@ -265,7 +265,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(1820),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2025,2,18)));
 
             carRepository.save(
@@ -279,7 +279,7 @@ public class ProyectofinalApplication {
                             "gasolina",
                             "automatico",
                             new BigDecimal(1820),null,
-                            new CategoryEntity(1L, "Crossover", "Description"),
+                            new CategoryEntity(1L, "Crossover", "Description", null),
                             LocalDate.of(2025,3,2)));
 
             carRepository.save(
@@ -294,7 +294,7 @@ public class ProyectofinalApplication {
                             "estandar",
                             new BigDecimal(1852),
                             null,
-                            new CategoryEntity(2L, "Sedan", "Description"),
+                            new CategoryEntity(2L, "Sedan", "Description", null),
                             LocalDate.of(2025,2,11)));
 
         };
