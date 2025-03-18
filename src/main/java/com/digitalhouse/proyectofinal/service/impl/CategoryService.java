@@ -2,11 +2,13 @@ package com.digitalhouse.proyectofinal.service.impl;
 
 import com.digitalhouse.proyectofinal.entity.CategoryEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
+import com.digitalhouse.proyectofinal.exception.ConflictException;
 import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
 import com.digitalhouse.proyectofinal.repository.CategoryRepository;
 import com.digitalhouse.proyectofinal.service.ICategoryService;
 import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,7 +71,11 @@ public class CategoryService implements ICategoryService {
             throw new ResourceNotFoundException("Category with ID " + id + " not found");
         }
 
-        categoryRepository.deleteById(id);
+        try {
+            categoryRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new ConflictException("Category with ID " + id + " cannot be deleted because it has associated cars.");
+        }
 
     }
 

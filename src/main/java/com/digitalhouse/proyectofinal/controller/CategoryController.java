@@ -103,15 +103,7 @@ public class CategoryController {
     @ApiResponse(responseCode = "200", description = "Categoría eliminada exitosamente")
     @ApiResponse(responseCode = "404", description = "Categoría no encontrada")
     public void deleteById(@Parameter(description = "ID de la categoría a eliminar", example = "1") @PathVariable Long id) {
-
-        try {
-            CategoryEntity userFound = categoryService.getById(id);
-            categoryService.deleteById(userFound.getId());
-            ResponseEntity.ok();
-        } catch (RuntimeException r) {
-            ResponseEntity.notFound();
-        }
-
+            categoryService.deleteById(id);
     }
 
 }
