@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -145,16 +146,16 @@ public class UserService implements IUserService {
 
     }
 
-    public void setFavorites(FavoriteRequest favoriteRequest){
+    public void setFavorites(FavoriteRequest favoriteRequest) {
 
         Optional<CarEntity> carEntityFound = carRepository.findById(favoriteRequest.getIdCar());
         Optional<UserEntity> userEntityFound = userRepository.findByName(favoriteRequest.getUsername());
 
-        if (userEntityFound.isEmpty()){
+        if (userEntityFound.isEmpty()) {
             throw new ResourceNotFoundException("User not found");
         }
 
-        if(carEntityFound.isEmpty()){
+        if (carEntityFound.isEmpty()) {
             throw new ResourceNotFoundException("Car not found");
         }
 
@@ -170,6 +171,35 @@ public class UserService implements IUserService {
         }
 
         userRepository.save(userEntityFound.get());
+
+    }
+
+    public Set<CarEntity> getFavorites(String username) {
+
+        Optional<UserEntity> userEntity = userRepository.findByName(username);
+
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        return userEntity.get().getFavorites();
+    }
+
+    @Override
+    public void updateFavorites(String username, Long id) {
+        Optional<UserEntity> userEntity = userRepository.findByName(username);
+
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        boolean removed = userEntity.get().getFavorites().removeIf(car -> car.getId().equals(id));
+
+        if (!removed) {
+            throw new ResourceNotFoundException("Car not found");
+        }
+
+         userRepository.save(userEntity.get());
 
     }
 
