@@ -547,7 +547,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/categories/3",
+							"raw": "localhost:8181/api/categories/1",
 							"host": [
 								"localhost"
 							],
@@ -555,7 +555,7 @@
 							"path": [
 								"api",
 								"categories",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -907,7 +907,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"administrator@gmail.com\",\r\n    \"serialNumber\": \"00000000000000002\"\r\n}",
+					"raw": "{\r\n    \"id_car\": 2,\r\n    \"username\": \"jose\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

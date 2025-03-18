@@ -147,8 +147,8 @@ public class UserService implements IUserService {
 
     public void setFavorites(FavoriteRequest favoriteRequest){
 
-        Optional<CarEntity> carEntityFound = carRepository.findBySerialNumber(favoriteRequest.getSerialNumber());
-        Optional<UserEntity> userEntityFound = userRepository.findByEmail(favoriteRequest.getEmail());
+        Optional<CarEntity> carEntityFound = carRepository.findById(favoriteRequest.getIdCar());
+        Optional<UserEntity> userEntityFound = userRepository.findByName(favoriteRequest.getUsername());
 
         if (userEntityFound.isEmpty()){
             throw new ResourceNotFoundException("User not found");
