@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8786d431-fae7-4306-968c-ac9819d3e38b",
+		"_postman_id": "e8195066-71cd-42d1-b660-8bc379492ceb",
 		"name": "reservauto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36205139"
@@ -18,7 +18,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/cars?page=0&size=2",
+							"raw": "localhost:8181/api/cars?page=0&size=3",
 							"host": [
 								"localhost"
 							],
@@ -34,41 +34,7 @@
 								},
 								{
 									"key": "size",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "findCarByTransmission",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8181/api/cars/transmission/automatico?page=0&size=2",
-							"host": [
-								"localhost"
-							],
-							"port": "8181",
-							"path": [
-								"api",
-								"cars",
-								"transmission",
-								"automatico"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "size",
-									"value": "2"
+									"value": "3"
 								}
 							]
 						}
@@ -141,7 +107,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -158,7 +124,7 @@
 							"formdata": [
 								{
 									"key": "car",
-									"value": "{\n    \"serialNumber\": \"00000000000000003\",\n    \"brand\": \"Toyota\",\n    \"name\": \"Corolla\",\n    \"model\": 2017,\n    \"status\": true,\n    \"fuelType\": \"Gasolina\",\n    \"transmissionType\": \"estandar\",\n    \"reserveCost\": 500.00,\n    \"category\":{\n        \"id\": 2\n    }\n}",
+									"value": "{\n    \"serialNumber\": \"10000000000000003\",\n    \"brand\": \"Toyota\",\n    \"name\": \"Corolla\",\n    \"model\": 2017,\n    \"status\": true,\n    \"fuelType\": \"Gasolina\",\n    \"transmissionType\": \"estandar\",\n    \"reserveCost\": 500.00,\n    \"category\":{\n        \"id\": 2\n    }\n}",
 									"type": "text"
 								},
 								{
@@ -193,7 +159,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -217,8 +183,8 @@
 									"key": "files",
 									"type": "file",
 									"src": [
-										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/2.jpg",
-										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/3.jpg"
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/3.jpg",
+										"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/4.jpg"
 									]
 								}
 							]
@@ -251,7 +217,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -294,7 +260,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -308,7 +274,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"fccapa5@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"name\" : \"frankCcapa1\",\r\n    \"email\" : \"fccapa5@gmail.com\",\r\n    \"password\" : \"2147483647\",\r\n    \"type\" : \"customer\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,7 +304,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -368,11 +334,16 @@
 					"name": "deleteUser",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"type": "basic",
+							"basic": [
 								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTdG9yZUFwcCIsInN1YiI6IkpXVCBUb2tlbiIsInVzZXJuYW1lIjoiam9zZSIsImF1dGhvcml0aWVzIjoiUk9MRV9hZG1pbiIsImlhdCI6MTc0MTA0Nzk4MywiZXhwIjoxNzQxMDQ4MTAzfQ.3oq4Y8vZqGRkqLcqsCz1iCbBz1wQcfDc4u3ZrnbmRr0",
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -402,7 +373,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -441,13 +412,13 @@
 							"type": "basic",
 							"basic": [
 								{
-									"key": "username",
-									"value": "jose",
+									"key": "password",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
-									"key": "password",
-									"value": "pass123",
+									"key": "username",
+									"value": "jose",
 									"type": "string"
 								}
 							]
@@ -485,7 +456,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -529,7 +500,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -563,7 +534,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -576,7 +547,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/categories/3",
+							"raw": "localhost:8181/api/categories/1",
 							"host": [
 								"localhost"
 							],
@@ -584,7 +555,7 @@
 							"path": [
 								"api",
 								"categories",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -598,7 +569,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -628,6 +599,255 @@
 			]
 		},
 		{
+			"name": "filter",
+			"item": [
+				{
+					"name": "findCar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/search?query=automatico 1000.00&page=0&size=10&sort=serialNumber,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "automatico 1000.00"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "serialNumber,asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByTransmission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/transmission/automatico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"transmission",
+								"automatico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByDates",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/post?start=2025-1-1&end=2025-2-15&page=0&size=10&sort=postDate,asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"post"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "2025-1-1"
+								},
+								{
+									"key": "end",
+									"value": "2025-2-15"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "postDate,asc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "favorites",
+			"item": [
+				{
+					"name": "setFavorites",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_car\": 2,\r\n    \"username\": \"jose\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8181/api/users/favorites",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"users",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFavorites",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/api/users/favorites/jose",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"users",
+								"favorites",
+								"jose"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateFavorites",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/api/users/favorites/jose/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"users",
+								"favorites",
+								"jose",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "login",
 			"request": {
 				"auth": {
@@ -635,7 +855,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "pass123",
+							"value": "pass12334565",
 							"type": "string"
 						},
 						{
@@ -669,7 +889,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "pass123",
+							"value": "pass12334565",
 							"type": "string"
 						},
 						{
@@ -713,7 +933,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "pass123",
+							"value": "pass12334565",
 							"type": "string"
 						},
 						{
@@ -748,7 +968,7 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "pass123",
+							"value": "pass12334565",
 							"type": "string"
 						},
 						{

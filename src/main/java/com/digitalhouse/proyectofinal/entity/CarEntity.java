@@ -1,8 +1,10 @@
 package com.digitalhouse.proyectofinal.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
@@ -88,4 +90,9 @@ public class CarEntity {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(images, new TypeReference<List<String>>() {});
     }
+
+    @Setter
+    @JsonProperty("postDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate postDate;
 }

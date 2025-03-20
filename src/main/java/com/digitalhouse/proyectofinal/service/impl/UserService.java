@@ -1,9 +1,12 @@
 package com.digitalhouse.proyectofinal.service.impl;
 
+import com.digitalhouse.proyectofinal.dto.FavoriteRequest;
+import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.exception.ConflictException;
 import com.digitalhouse.proyectofinal.exception.EmailSendingException;
 import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
+import com.digitalhouse.proyectofinal.repository.CarRepository;
 import com.digitalhouse.proyectofinal.repository.UserRepository;
 import com.digitalhouse.proyectofinal.service.IUserService;
 import jakarta.mail.MessagingException;
@@ -11,8 +14,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,16 +27,17 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final CarRepository carRepository;
 
-    public List<UserEntity> getAllUser(){
+    public List<UserEntity> getAllUser() {
         return userRepository.findAll();
     }
 
-    public UserEntity getById(Long id){
+    public UserEntity getById(Long id) {
 
         Optional<UserEntity> user = userRepository.findById(id);
 
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             //throw new RuntimeException("User not found");
             throw new ResourceNotFoundException("User with ID " + id + " not found");
         }
@@ -38,7 +45,7 @@ public class UserService implements IUserService {
         return user.get();
     }
 
-    public UserEntity create(UserEntity userEntity){
+    public UserEntity create(UserEntity userEntity) {
 //
 //        String passwordEncode = passwordEncoder.encode(userEntity.getPassword());
 //
@@ -62,21 +69,21 @@ public class UserService implements IUserService {
         // Mensaje personalizado --> Mejorar
         String subject = "Welcome to Our Service, " + savedUser.getName() + "!";
         String message = """
-        Hi %s,
+                Hi %s,
 
-        Welcome to our platform! Your account has been successfully created.
-        
-        Here are your details:
-        - Email: %s
-        - Account Status: Active
-        
-        Please keep your credentials safe. If you did not register this account, contact support immediately.
+                Welcome to our platform! Your account has been successfully created.
+                        
+                Here are your details:
+                - Email: %s
+                - Account Status: Active
+                        
+                Please keep your credentials safe. If you did not register this account, contact support immediately.
 
-        Link for login: http://localhost:8181/login
+                Link for login: http://localhost:8181/login
 
-        Best regards,
-        The Team
-        """.formatted(savedUser.getName(), savedUser.getEmail());
+                Best regards,
+                The Team
+                """.formatted(savedUser.getName(), savedUser.getEmail());
         try {
             emailService.sendEmail(savedUser.getEmail(), subject, message);
         } catch (MessagingException me) {
@@ -87,11 +94,11 @@ public class UserService implements IUserService {
 
     }
 
-    public UserEntity update(Long id, UserEntity userEntity){
+    public UserEntity update(Long id, UserEntity userEntity) {
 
         Optional<UserEntity> user = userRepository.findById(id);
 
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             //throw new RuntimeException("User not found");
             throw new ResourceNotFoundException("User with ID " + id + " not found");
         }
@@ -126,8 +133,8 @@ public class UserService implements IUserService {
             throw new ResourceNotFoundException("User with ID " + id + " not found");
         }
 
-        if (user.get().getType().contains("admin")){
-           Long adminCount = userRepository.countByTypeContains("admin");
+        if (user.get().getType().contains("admin")) {
+            Long adminCount = userRepository.countByTypeContains("admin");
 
             if (adminCount <= 1) {
                 throw new ConflictException("Cannot delete admin user. At least one admin user must exist.");
@@ -136,6 +143,63 @@ public class UserService implements IUserService {
         }
 
         userRepository.deleteById(id);
+
+    }
+
+    public void setFavorites(FavoriteRequest favoriteRequest) {
+
+        Optional<CarEntity> carEntityFound = carRepository.findById(favoriteRequest.getIdCar());
+        Optional<UserEntity> userEntityFound = userRepository.findByName(favoriteRequest.getUsername());
+
+        if (userEntityFound.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        if (carEntityFound.isEmpty()) {
+            throw new ResourceNotFoundException("Car not found");
+        }
+
+        Set<CarEntity> favorites = userEntityFound.get().getFavorites();
+        if (favorites == null) {
+            favorites = new HashSet<>();
+            userEntityFound.get().setFavorites(favorites);
+        }
+
+        boolean added = favorites.add(carEntityFound.get());
+        if (!added) {
+            throw new ConflictException("Car already exists in favorites");
+        }
+
+        userRepository.save(userEntityFound.get());
+
+    }
+
+    public Set<CarEntity> getFavorites(String username) {
+
+        Optional<UserEntity> userEntity = userRepository.findByName(username);
+
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        return userEntity.get().getFavorites();
+    }
+
+    @Override
+    public void updateFavorites(String username, Long id) {
+        Optional<UserEntity> userEntity = userRepository.findByName(username);
+
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        boolean removed = userEntity.get().getFavorites().removeIf(car -> car.getId().equals(id));
+
+        if (!removed) {
+            throw new ResourceNotFoundException("Car not found");
+        }
+
+         userRepository.save(userEntity.get());
 
     }
 

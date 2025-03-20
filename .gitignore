@@ -33,3 +33,7 @@ build/
 .vscode/
 
 .env
+/src/main/resources/static/uploads/cars/
+!/src/main/resources/static/uploads/cars/.gitkeep
+/src/main/resources/static/uploads/categories/
+!/src/main/resources/static/uploads/categories/.gitkeep
