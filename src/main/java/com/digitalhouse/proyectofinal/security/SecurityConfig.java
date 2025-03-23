@@ -70,6 +70,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/categories").hasRole("admin")
                         .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("admin")
                         .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/api/reserves").hasAnyRole("admin","customer")
                 ) .httpBasic(Customizer.withDefaults());
                 /*.httpBasic(httpBasic -> {
                 });*/

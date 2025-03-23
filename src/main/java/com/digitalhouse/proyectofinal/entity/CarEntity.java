@@ -95,4 +95,7 @@ public class CarEntity {
     @JsonProperty("postDate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate postDate;
+
+    @OneToMany(mappedBy = "id")
+    private List<ReserveEntity> reserves;
 }
