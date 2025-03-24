@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @SpringBootApplication
+@EnableMethodSecurity(prePostEnabled = true)
 public class ProyectofinalApplication {
 
     public static void main(String[] args) {

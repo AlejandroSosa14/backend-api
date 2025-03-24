@@ -19,19 +19,19 @@ import java.util.*;
 public class ReserveService {
 
     private final UserRepository userRepository;
-    private final ReserveRepository repository;
+    private final ReserveRepository reserveRepository;
     private final CarRepository carRepository;
 
     public List<ReserveEntity> findAll() {
-        return repository.findAll();
+        return reserveRepository.findAll();
     }
 
     public ReserveEntity findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reserve not found"));
+        return reserveRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reserve not found"));
     }
 
     public List<ReserveEntity> findByUserId(UserEntity userEntity) {
-        return repository.findByUser(userEntity);
+        return reserveRepository.findByUser(userEntity);
     }
 
     public ReserveEntity save(ReserveEntity reserveEntity) {
@@ -83,7 +83,10 @@ public class ReserveService {
         reserveEntity.setUser(userBuilder);
         reserveEntity.setCars(cars);
 
-        return repository.save(reserveEntity);
+        return reserveRepository.save(reserveEntity);
     }
 
+    public List<ReserveEntity> findByUserId(Long id) {
+        return reserveRepository.findByUserId(id);
+    }
 }

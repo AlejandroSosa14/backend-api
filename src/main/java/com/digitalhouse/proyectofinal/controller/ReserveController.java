@@ -3,6 +3,7 @@ package com.digitalhouse.proyectofinal.controller;
 import com.digitalhouse.proyectofinal.entity.ReserveEntity;
 import com.digitalhouse.proyectofinal.service.impl.ReserveService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,4 +25,9 @@ public class ReserveController {
         return reserveService.findAll();
     }
 
+    @GetMapping("/user/{id}")
+    @PreAuthorize("#id == @userRepository.findIdByName(authentication.name) or hasRole('ADMIN')")
+    public List<ReserveEntity> findByUserId(@PathVariable Long id) {
+        return reserveService.findByUserId(id);
+    }
 }

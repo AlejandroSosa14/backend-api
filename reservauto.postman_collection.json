@@ -872,7 +872,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 7\r\n        },\r\n        {\r\n            \"id\": 9\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-03-25\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
+							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        },\r\n        {\r\n            \"id\": 13\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-03-26\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -922,6 +922,42 @@
 							"path": [
 								"api",
 								"reserves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReserByUser",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8181/api/reserves/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"reserves",
+								"user",
+								"1"
 							]
 						}
 					},
