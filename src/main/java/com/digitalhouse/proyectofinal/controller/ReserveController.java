@@ -3,10 +3,9 @@ package com.digitalhouse.proyectofinal.controller;
 import com.digitalhouse.proyectofinal.entity.ReserveEntity;
 import com.digitalhouse.proyectofinal.service.impl.ReserveService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +17,11 @@ public class ReserveController {
     @PostMapping
     public ReserveEntity save(@RequestBody ReserveEntity reserveEntity) {
         return reserveService.save(reserveEntity);
+    }
+
+    @GetMapping
+    public List<ReserveEntity> allAdmin() {
+        return reserveService.findAll();
     }
 
 }

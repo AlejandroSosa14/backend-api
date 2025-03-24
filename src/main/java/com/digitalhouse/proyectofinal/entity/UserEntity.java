@@ -1,5 +1,6 @@
 package com.digitalhouse.proyectofinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -54,6 +55,7 @@ public class UserEntity {
     private Set<CarEntity> favorites = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<ReserveEntity> reserves;
 
 }
