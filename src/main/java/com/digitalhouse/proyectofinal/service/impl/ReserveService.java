@@ -4,15 +4,18 @@ import com.digitalhouse.proyectofinal.entity.CarEntity;
 import com.digitalhouse.proyectofinal.entity.ReserveEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.exception.BadRequestException;
+import com.digitalhouse.proyectofinal.exception.EmailSendingException;
 import com.digitalhouse.proyectofinal.exception.ResourceNotFoundException;
 import com.digitalhouse.proyectofinal.repository.CarRepository;
 import com.digitalhouse.proyectofinal.repository.ReserveRepository;
 import com.digitalhouse.proyectofinal.repository.UserRepository;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class ReserveService {
     private final UserRepository userRepository;
     private final ReserveRepository reserveRepository;
     private final CarRepository carRepository;
+    private final EmailService emailService;
 
     public List<ReserveEntity> findAll() {
         return reserveRepository.findAll();
@@ -82,6 +86,30 @@ public class ReserveService {
 
         reserveEntity.setUser(userBuilder);
         reserveEntity.setCars(cars);
+
+        // Mensaje personalizado --> Mejorar
+        String subject = "Reservation details";
+        String listCars = cars.stream()
+                .map(carEntity -> carEntity.getName() + " "+ carEntity.getBrand() + " " + carEntity.getModel())
+                .collect(Collectors.joining(", "));
+
+        String message = """
+                Hi %s,
+  
+                Here are your details:
+                - Dates: %s
+                - Cars: %s
+
+                Link for login: http://localhost:8181/login
+
+                Best regards,
+                The Team
+                """.formatted(userEntity.getName(), reserveEntity.getEndDate() + " - " + reserveEntity.getStartDate(), listCars);
+        try {
+            emailService.sendEmail(userEntity.getEmail(), subject, message);
+        } catch (MessagingException me) {
+            throw new EmailSendingException("Failed to send reservation email. Please check email service.");
+        }
 
         return reserveRepository.save(reserveEntity);
     }
