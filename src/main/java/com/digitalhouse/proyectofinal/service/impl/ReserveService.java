@@ -40,6 +40,10 @@ public class ReserveService {
 
     public ReserveEntity save(ReserveEntity reserveEntity) {
 
+        if (reserveEntity.getStartDate().isBefore(java.time.LocalDate.now())) {
+            throw new BadRequestException("Start date must be after today");
+        }
+
         if (reserveEntity.getStartDate() == null || reserveEntity.getEndDate() == null) {
             throw new BadRequestException("Start date and end date are required");
         }
@@ -104,7 +108,7 @@ public class ReserveService {
 
                 Best regards,
                 The Team
-                """.formatted(userEntity.getName(), reserveEntity.getEndDate() + " - " + reserveEntity.getStartDate(), listCars);
+                """.formatted(userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), listCars);
         try {
             emailService.sendEmail(userEntity.getEmail(), subject, message);
         } catch (MessagingException me) {
