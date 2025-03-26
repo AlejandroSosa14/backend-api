@@ -159,4 +159,30 @@ public class CarService implements ICarService {
         return cars;
     }
 
+    public Page<CarEntity> findByBrand(String brand, Pageable pageable) throws ResourceNotFoundException {
+
+        Page<CarEntity> cars = carRepository.findByBrand(brand, pageable);
+
+        if (cars.isEmpty()) {
+            //throw new RuntimeException("Cars not found");
+            throw new ResourceNotFoundException("No cars found with brand: " + brand);
+        }
+
+        return cars;
+
+    }
+
+    public Page<CarEntity> findByLocationCity(String city, Pageable pageable) throws ResourceNotFoundException {
+
+        Page<CarEntity> cars = carRepository.findByLocationCity(city, pageable);
+
+        if (cars.isEmpty()) {
+            //throw new RuntimeException("Cars not found");
+            throw new ResourceNotFoundException("No cars found with location: " + city);
+        }
+
+        return cars;
+
+    }
+
 }

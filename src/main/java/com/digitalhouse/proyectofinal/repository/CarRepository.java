@@ -20,4 +20,8 @@ public interface CarRepository extends JpaRepository<CarEntity, Long>, JpaSpecif
 
     public Page<CarEntity> findByPostDateBetween(LocalDate start, LocalDate end, Pageable pageable);
 
+    public Page<CarEntity> findByBrand(String brand, Pageable pageable);
+
+    public Page<CarEntity> findByLocationCity(String location, Pageable pageable);
+
 }

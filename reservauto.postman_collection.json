@@ -124,7 +124,7 @@
 							"formdata": [
 								{
 									"key": "car",
-									"value": "{\n    \"serialNumber\": \"10000000000000003\",\n    \"brand\": \"Toyota\",\n    \"name\": \"Corolla\",\n    \"model\": 2017,\n    \"status\": true,\n    \"fuelType\": \"Gasolina\",\n    \"transmissionType\": \"estandar\",\n    \"reserveCost\": 500.00,\n    \"category\":{\n        \"id\": 2\n    }\n}",
+									"value": "{\n    \"serialNumber\": \"10000000000000003\",\n    \"brand\": \"Toyota\",\n    \"name\": \"Corolla\",\n    \"model\": 2017,\n    \"status\": true,\n    \"fuelType\": \"Gasolina\",\n    \"transmissionType\": \"estandar\",\n    \"reserveCost\": 500.00,\n    \"category\":{\n        \"id\": 2\n    },\n    \"locationCity\": \"EEUU\",\n    \"locationCountry\": \"New York\",\n    \"color\": \"red\"\n}",
 									"type": "text"
 								},
 								{
@@ -176,7 +176,7 @@
 							"formdata": [
 								{
 									"key": "car",
-									"value": "{\n    \"id\": 2,\n    \"serialNumber\": \"10000000000000002\",\n    \"brand\": \"NISSAN\",\n    \"name\": \"Versa\",\n    \"model\": 2018,\n    \"status\": true,\n    \"fuelType\": \"gasolina\",\n    \"transmissionType\": \"automatico\",\n    \"reserveCost\": 350.00,\n    \"images\": null,\n    \"category\": {\n        \"id\": 2\n    }\n}",
+									"value": "{\n    \"id\": 2,\n    \"serialNumber\": \"10000000000000002\",\n    \"brand\": \"NISSAN\",\n    \"name\": \"Versa\",\n    \"model\": 2018,\n    \"status\": true,\n    \"fuelType\": \"gasolina\",\n    \"transmissionType\": \"automatico\",\n    \"reserveCost\": 350.00,\n    \"images\": null,\n    \"category\": {\n        \"id\": 2\n    },\n    \"locationCity\": \"EEUU\",\n    \"locationCountry\": \"Illinois\",\n    \"color\": \"blue\"\n}",
 									"type": "text"
 								},
 								{
@@ -666,6 +666,50 @@
 					"response": []
 				},
 				{
+					"name": "findByBrand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/brand/nissan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"brand",
+								"nissan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByLocationCity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/api/cars/location/new york",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"api",
+								"cars",
+								"location",
+								"new york"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "findByDates",
 					"request": {
 						"auth": {
@@ -872,7 +916,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        },\r\n        {\r\n            \"id\": 13\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-03-26\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
+							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        },\r\n        {\r\n            \"id\": 13\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"frankCcapa1\"\r\n    },\r\n    \"startDate\": \"2025-03-26\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
