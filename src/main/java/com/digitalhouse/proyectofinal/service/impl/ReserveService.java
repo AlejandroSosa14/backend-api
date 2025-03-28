@@ -30,10 +30,6 @@ public class ReserveService {
         return reserveRepository.findAll();
     }
 
-    public ReserveEntity findById(Long id) {
-        return reserveRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reserve not found"));
-    }
-
     public List<ReserveEntity> findByUserId(UserEntity userEntity) {
         return reserveRepository.findByUser(userEntity);
     }
@@ -120,5 +116,9 @@ public class ReserveService {
 
     public List<ReserveEntity> findByUserId(Long id) {
         return reserveRepository.findByUserId(id);
+    }
+
+    public ReserveEntity findByIdAndUserId(Long serverId, Long idUser){
+        return reserveRepository.findByIdAndUserId(serverId, idUser).orElseThrow(() -> new ResourceNotFoundException("Reserve not found"));
     }
 }

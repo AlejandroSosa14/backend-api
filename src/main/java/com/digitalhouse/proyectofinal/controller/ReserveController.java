@@ -30,4 +30,10 @@ public class ReserveController {
     public List<ReserveEntity> findByUserId(@PathVariable Long id) {
         return reserveService.findByUserId(id);
     }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("#id == @userRepository.findIdByName(authentication.name) or hasRole('ADMIN')")
+    public ReserveEntity findByIdAndUserId(@PathVariable Long id, @RequestParam Long userId){
+        return reserveService.findByIdAndUserId(id, userId);
+    }
 }
