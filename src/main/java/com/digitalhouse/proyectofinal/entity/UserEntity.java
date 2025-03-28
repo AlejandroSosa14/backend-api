@@ -39,11 +39,9 @@ public class UserEntity {
     private String password;
 
     @Setter
-    @NotBlank
     private String type;
 
     @Setter
-    @NotNull
     private Boolean active;
 
     @ManyToMany
