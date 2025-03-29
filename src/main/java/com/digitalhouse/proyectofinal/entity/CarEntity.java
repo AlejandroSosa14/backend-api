@@ -95,4 +95,19 @@ public class CarEntity {
     @JsonProperty("postDate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate postDate;
+
+    @OneToMany(mappedBy = "id")
+    private List<ReserveEntity> reserves;
+
+    @Setter
+    @NotBlank(message = "Location city required")
+    private String locationCity;
+
+    @Setter
+    @NotBlank(message = "Location country required")
+    private String locationCountry;
+
+    @Setter
+    @NotBlank(message = "Color required")
+    private String color;
 }

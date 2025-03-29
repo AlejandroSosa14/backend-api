@@ -63,13 +63,17 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/favorites").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.GET, "/api/users/favorites/*").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.PUT, "/api/users/favorites/**").hasAnyRole("admin","customer")
-                        .requestMatchers(HttpMethod.POST, "/api/users").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("admin")
                         .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("admin")
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").hasRole("admin")
                         .requestMatchers(HttpMethod.POST, "/api/categories").hasRole("admin")
                         .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("admin")
                         .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/api/reserves").hasAnyRole("admin","customer")
+                        .requestMatchers(HttpMethod.GET, "/api/reserves").hasAnyRole("admin")
+                        .requestMatchers(HttpMethod.GET, "/api/reserves/**").hasAnyRole("admin","customer")
+                        .requestMatchers(HttpMethod.GET, "/api/reserves/user/**").hasAnyRole("admin","customer")
                 ) .httpBasic(Customizer.withDefaults());
                 /*.httpBasic(httpBasic -> {
                 });*/
@@ -79,10 +83,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); // Permitir solicitudes desde el frontend
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // Headers permitidos
-        configuration.setAllowCredentials(true); // Permitir credenciales como cookies o Authorization header
+        configuration.setAllowedOriginPatterns(List.of("*")); // Permitir todas las solicitudes de cualquier origen
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos HTTP permitidos
+        configuration.setAllowedHeaders(List.of("*")); // Permitir cualquier encabezado
+        configuration.setAllowCredentials(true); // Permitir credenciales (cookies, Authorization header, etc.)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // Aplicar configuración a todas las rutas

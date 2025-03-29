@@ -18,4 +18,6 @@ public interface ICarService {
     CarEntity create(CarEntity carEntity,String dir, List<MultipartFile> files) throws IOException;
     Page<CarEntity> searchCars(String search,  Pageable pageable);
     Page<CarEntity> findByStartDateBetween(LocalDate start, LocalDate end, Pageable pageable);
+    Page<CarEntity> findByBrand(String brand, Pageable pageable);
+    Page<CarEntity> findByLocationCity(String city, Pageable pageable);
 }

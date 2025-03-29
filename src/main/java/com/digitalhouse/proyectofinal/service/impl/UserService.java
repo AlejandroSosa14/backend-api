@@ -63,6 +63,15 @@ public class UserService implements IUserService {
         }
 
         String passwordEncode = passwordEncoder.encode(userEntity.getPassword());
+
+        if (userEntity.getType() == null) {
+            userEntity.setType("customer");
+        }
+
+        if (userEntity.getActive() == null) {
+            userEntity.setActive(Boolean.TRUE);
+        }
+
         userEntity.setPassword(passwordEncode);
         UserEntity savedUser = userRepository.save(userEntity);
 

@@ -187,4 +187,32 @@ public class CarController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/brand/{brand}")
+    public ResponseEntity<?> findByBrand(@PathVariable String brand, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CarEntity> cars = carService.findByBrand(brand, pageable);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", cars.getContent());
+        response.put("totalPages", cars.getTotalPages());
+        response.put("totalElements", cars.getTotalElements());
+        response.put("currentPage", page);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/location/{location}")
+    public ResponseEntity<?> findByLocation(@PathVariable String location, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CarEntity> cars = carService.findByLocationCity(location, pageable);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("content", cars.getContent());
+        response.put("totalPages", cars.getTotalPages());
+        response.put("totalElements", cars.getTotalElements());
+        response.put("currentPage", page);
+        return ResponseEntity.ok().body(response);
+    }
+
 }

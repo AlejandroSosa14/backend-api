@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @SpringBootApplication
+@EnableMethodSecurity(prePostEnabled = true)
 public class ProyectofinalApplication {
 
     public static void main(String[] args) {
@@ -35,7 +37,7 @@ public class ProyectofinalApplication {
                             "administrator@gmail.com",
                             new BCryptPasswordEncoder().encode("pass12334565"),
                             "admin",
-                            true,null)
+                            true,null,null)
 
             );
 
@@ -46,7 +48,7 @@ public class ProyectofinalApplication {
                             "customer1@gmail.com",
                             new BCryptPasswordEncoder().encode("123456789"),
                             "customer",
-                            true,null)
+                            true,null,null)
 
             );
 
@@ -57,7 +59,7 @@ public class ProyectofinalApplication {
                             "customer2@gmail.com",
                             new BCryptPasswordEncoder().encode("789456123"),
                             "customer",
-                            false,null)
+                            false,null,null)
 
             );
 
@@ -77,7 +79,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(1000),
                             null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.now()));
+                            LocalDate.now(),null,"New York","EEUU","red"));
 
             carRepository.save(
                     new CarEntity(
@@ -92,7 +94,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(450),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2025,1,10)));
+                            LocalDate.of(2025,1,10),null,"Texas","EEUU","blue"));
 
             carRepository.save(
                     new CarEntity(
@@ -106,7 +108,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1320),null,
                             new CategoryEntity(1L, "Crossover", "Description",null),
-                            LocalDate.of(2025,1,22)));
+                            LocalDate.of(2025,1,22),null,"CDMX", "Mexico","black"));
 
             carRepository.save(
                     new CarEntity(
@@ -121,7 +123,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(450),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2025,2,12)));
+                            LocalDate.of(2025,2,12),null,"California","EEUU","white"));
 
             carRepository.save(
                     new CarEntity(
@@ -135,7 +137,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1000),null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.of(2025,2,15)));
+                            LocalDate.of(2025,2,15),null,"EdoMex","Mexico","green"));
 
             carRepository.save(
                     new CarEntity(
@@ -150,7 +152,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(1820),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2024,12,16)));
+                            LocalDate.of(2024,12,16),null,"New York","EEUU","yellow"));
 
             carRepository.save(
                     new CarEntity(
@@ -164,7 +166,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1820),null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.of(2024,12,2)));
+                            LocalDate.of(2024,12,2),null,"Toronto", "Canada","purple"));
 
             carRepository.save(
                     new CarEntity(
@@ -179,7 +181,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(1852),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2024,11,28)));
+                            LocalDate.of(2024,11,28),null,"Vancouver", "Canada","black"));
 
             //////
             carRepository.save(
@@ -194,7 +196,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1000),null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.of(2024,12,5)));
+                            LocalDate.of(2024,12,5),null,"Monterrey", "Mexico","red"));
 
             carRepository.save(
                     new CarEntity(
@@ -209,7 +211,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(450),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2025,1,10)));
+                            LocalDate.of(2025,1,10),null,"Bogota","Colombia","blue"));
 
             carRepository.save(
                     new CarEntity(
@@ -223,7 +225,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1320),null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.of(2024,11,7)));
+                            LocalDate.of(2024,11,7),null,"Lima", "Peru","black"));
 
             carRepository.save(
                     new CarEntity(
@@ -238,7 +240,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(450),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2024,12,12)));
+                            LocalDate.of(2024,12,12),null,"Buenos Aires", "Argentina","white"));
             carRepository.save(
                     new CarEntity(
                             null,
@@ -251,7 +253,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1000),null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.of(2024,11,5)));
+                            LocalDate.of(2024,11,5),null,"Santiago", "Chile","red"));
 
             carRepository.save(
                     new CarEntity(
@@ -266,7 +268,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(1820),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2025,2,18)));
+                            LocalDate.of(2025,2,18),null,"Quito", "Ecuador","blue"));
 
             carRepository.save(
                     new CarEntity(
@@ -280,7 +282,7 @@ public class ProyectofinalApplication {
                             "automatico",
                             new BigDecimal(1820),null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.of(2025,3,2)));
+                            LocalDate.of(2025,3,2),null,"Medellin", "Colombia","black"));
 
             carRepository.save(
                     new CarEntity(
@@ -295,7 +297,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(1852),
                             null,
                             new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2025,2,11)));
+                            LocalDate.of(2025,2,11),null,"Arequipa", "Peru","black"));
 
         };
 

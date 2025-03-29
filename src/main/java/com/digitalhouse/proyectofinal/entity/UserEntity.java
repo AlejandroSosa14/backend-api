@@ -1,20 +1,22 @@
 package com.digitalhouse.proyectofinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class UserEntity {
 
     @Id
@@ -37,11 +39,9 @@ public class UserEntity {
     private String password;
 
     @Setter
-    @NotBlank
     private String type;
 
     @Setter
-    @NotNull
     private Boolean active;
 
     @ManyToMany
@@ -52,5 +52,8 @@ public class UserEntity {
     @Setter
     private Set<CarEntity> favorites = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<ReserveEntity> reserves;
 
 }
