@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.security;
 
 import com.digitalhouse.proyectofinal.filter.JwtGeneratorFilter;
 import com.digitalhouse.proyectofinal.filter.JwtValidatorFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,6 +29,9 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    @Value("${url.frontend}")
+    private String urlFrontend;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -51,7 +55,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/email/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/user/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/upload").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/api/upload/**").hasRole("admin")
                         .requestMatchers(HttpMethod.GET, "/api/login").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/cars/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()

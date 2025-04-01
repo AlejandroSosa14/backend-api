@@ -11,6 +11,7 @@ import com.digitalhouse.proyectofinal.repository.ReserveRepository;
 import com.digitalhouse.proyectofinal.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class ReserveService {
     private final ReserveRepository reserveRepository;
     private final CarRepository carRepository;
     private final EmailService emailService;
+    @Value("${url.backend}")
+    private String urlBackend;
 
     public List<ReserveEntity> findAll() {
         return reserveRepository.findAll();
@@ -62,7 +65,7 @@ public class ReserveService {
                 throw new ResourceNotFoundException(car.getName() + " car not found");
             }
 
-            if (!carEntity.get().getStatus()){
+            if (!carEntity.get().getStatus()) {
                 throw new BadRequestException(carEntity.get().getName() + " car is already reserved");
             }
 
@@ -88,9 +91,9 @@ public class ReserveService {
         reserveEntity.setCars(cars);
 
         // Mensaje personalizado --> Mejorar
-        String subject = "Reservation Confirmation";
+        String subject = "Reservation details";
         String listCars = cars.stream()
-                .map(carEntity -> carEntity.getName() + " "+ carEntity.getBrand() + " " + carEntity.getModel())
+                .map(carEntity -> carEntity.getName() + " " + carEntity.getBrand() + " " + carEntity.getModel())
                 .collect(Collectors.joining(", "));
 
         String message = String.format("""
@@ -136,7 +139,7 @@ public class ReserveService {
                         
                         <!-- Action Button -->
                         <div style="text-align: center; margin-bottom: 40px;">
-                            <a href="http://localhost:8080/login" style="background-color: #1736c0; color: white; font-weight: 500; padding: 15px 30px; border-radius: 10px; text-decoration: none; display: inline-block;">
+                            <a href="%s" style="background-color: #1736c0; color: white; font-weight: 500; padding: 15px 30px; border-radius: 10px; text-decoration: none; display: inline-block;">
                                 Manage Your Reservation
                             </a>
                         </div>
@@ -152,7 +155,7 @@ public class ReserveService {
             </body>
             </html>
             
-            """, userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), listCars);
+            """, userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), listCars, urlBackend + "/login");
         try {
             emailService.sendEmail(userEntity.getEmail(), subject, message);
         } catch (MessagingException me) {
@@ -166,7 +169,7 @@ public class ReserveService {
         return reserveRepository.findByUserId(id);
     }
 
-    public ReserveEntity findByIdAndUserId(Long serverId, Long idUser){
+    public ReserveEntity findByIdAndUserId(Long serverId, Long idUser) {
         return reserveRepository.findByIdAndUserId(serverId, idUser).orElseThrow(() -> new ResourceNotFoundException("Reserve not found"));
     }
 }

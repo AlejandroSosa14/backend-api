@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,8 +20,10 @@ public class FileUploadService {
 
     private final String UPLOAD_DIR = "src/main/resources/static/uploads/";
     private final ObjectMapper objectMapper;
+    @Value("${url.backend}")
+    private String urlBackend;
 
-    public String uploadFiles(String dir,List<MultipartFile> files) throws IOException {
+    public String uploadFiles(String dir, List<MultipartFile> files) throws IOException {
 
         List<String> fileNames = new ArrayList<>();
 
@@ -30,7 +33,7 @@ public class FileUploadService {
                 Path path = Paths.get(UPLOAD_DIR + dir, uniqueFileName);
 
                 Files.copy(file.getInputStream(), path);
-                fileNames.add("http://localhost:8080/uploads/" + dir + uniqueFileName);
+                fileNames.add(urlBackend + "/uploads/" + dir + uniqueFileName);
             }
         }
 

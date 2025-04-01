@@ -11,6 +11,7 @@ import com.digitalhouse.proyectofinal.repository.UserRepository;
 import com.digitalhouse.proyectofinal.service.IUserService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final CarRepository carRepository;
+    @Value("${url.backend}")
+    private String urlBackend;
 
     public List<UserEntity> getAllUser() {
         return userRepository.findAll();
@@ -88,11 +91,11 @@ public class UserService implements IUserService {
                         
                 Please keep your credentials safe. If you did not register this account, contact support immediately.
 
-                Link for login: http://localhost:8080/login
+                Link for login: %s
 
                 Best regards,
                 The Team
-                """.formatted(savedUser.getName(), savedUser.getEmail());
+                """.formatted(savedUser.getName(), savedUser.getEmail(), urlBackend + "/login");
         try {
             emailService.sendEmail(savedUser.getEmail(), subject, message);
         } catch (MessagingException me) {
