@@ -30,7 +30,7 @@ public class FileUploadService {
                 Path path = Paths.get(UPLOAD_DIR + dir, uniqueFileName);
 
                 Files.copy(file.getInputStream(), path);
-                fileNames.add("http://localhost:8181/uploads/" + dir + uniqueFileName);
+                fileNames.add("http://localhost:8080/uploads/" + dir + uniqueFileName);
             }
         }
 

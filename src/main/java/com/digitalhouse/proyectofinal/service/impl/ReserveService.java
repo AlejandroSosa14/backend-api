@@ -100,7 +100,7 @@ public class ReserveService {
                 - Dates: %s
                 - Cars: %s
 
-                Link for login: http://localhost:8181/login
+                Link for login: http://localhost:8080/login
 
                 Best regards,
                 The Team

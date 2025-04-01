@@ -18,11 +18,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/cars?page=0&size=3",
+							"raw": "localhost:8080/api/cars?page=0&size=3",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars"
@@ -50,11 +50,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/cars/2",
+							"raw": "localhost:8080/api/cars/2",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -72,7 +72,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "pass123",
+									"value": "pass12334565",
 									"type": "string"
 								},
 								{
@@ -85,11 +85,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/cars/2",
+							"raw": "localhost:8080/api/cars/2",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -138,11 +138,11 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:8181/api/cars",
+							"raw": "localhost:8080/api/cars",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars"
@@ -190,11 +190,11 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:8181/api/cars/3",
+							"raw": "localhost:8080/api/cars/3",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -227,11 +227,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/api/users",
+							"raw": "localhost:8080/api/users",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users"
@@ -270,11 +270,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/api/users/3",
+							"raw": "localhost:8080/api/users/3",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users",
@@ -305,11 +305,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/users",
+							"raw": "localhost:8080/api/users",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users"
@@ -339,11 +339,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/users/4",
+							"raw": "localhost:8080/api/users/4",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users",
@@ -374,11 +374,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/users/2",
+							"raw": "localhost:8080/api/users/2",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users",
@@ -414,20 +414,26 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"familiar\",\r\n    \"image\" : \"https://example.com/car1.jpg\",\r\n    \"description\" : null\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category",
+									"value": "{\n        \"name\": \"Familiar\",\n        \"description\": \"Description\"\n }",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/3.jpg"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "localhost:8181/api/categories",
+							"raw": "localhost:8080/api/categories",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"categories"
@@ -466,11 +472,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/api/categories/2",
+							"raw": "localhost:8080/api/categories/2",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"categories",
@@ -501,11 +507,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/categories",
+							"raw": "localhost:8080/api/categories",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"categories"
@@ -535,11 +541,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/categories/1",
+							"raw": "localhost:8080/api/categories/1",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"categories",
@@ -570,11 +576,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/categories/1",
+							"raw": "localhost:8080/api/categories/1",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"categories",
@@ -598,12 +604,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8181/api/cars/search?query=automatico 1000.00&page=0&size=10&sort=serialNumber,asc",
+							"raw": "http://localhost:8080/api/cars/search?query=automatico 1000.00&page=0&size=10&sort=serialNumber,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -637,12 +643,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8181/api/cars/transmission/automatico",
+							"raw": "http://localhost:8080/api/cars/transmission/automatico",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -659,12 +665,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8181/api/cars/brand/nissan",
+							"raw": "http://localhost:8080/api/cars/brand/nissan",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -681,12 +687,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8181/api/cars/location/new york",
+							"raw": "http://localhost:8080/api/cars/location/new york",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -718,12 +724,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8181/api/cars/post?start=2025-1-1&end=2025-2-15&page=0&size=10&sort=postDate,asc",
+							"raw": "http://localhost:8080/api/cars/post?start=2025-1-1&end=2025-2-15&page=0&size=10&sort=postDate,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"cars",
@@ -790,11 +796,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/api/users/favorites",
+							"raw": "localhost:8080/api/users/favorites",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users",
@@ -825,11 +831,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/users/favorites/jose",
+							"raw": "localhost:8080/api/users/favorites/jose",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users",
@@ -861,17 +867,17 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/users/favorites/jose/1",
+							"raw": "localhost:8080/api/users/favorites/jose/2",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"users",
 								"favorites",
 								"jose",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -904,7 +910,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        },\r\n        {\r\n            \"id\": 13\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-03-27\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
+							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        },\r\n        {\r\n            \"id\": 13\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-03-28\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -912,11 +918,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8181/api/reserves",
+							"raw": "localhost:8080/api/reserves",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"reserves"
@@ -946,11 +952,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/reserves",
+							"raw": "localhost:8080/api/reserves",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"reserves"
@@ -980,11 +986,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/reserves/1?userId=2",
+							"raw": "localhost:8080/api/reserves/1?userId=1",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"reserves",
@@ -993,7 +999,7 @@
 							"query": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -1021,11 +1027,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8181/api/reserves/user/1",
+							"raw": "localhost:8080/api/reserves/user/1",
 							"host": [
 								"localhost"
 							],
-							"port": "8181",
+							"port": "8080",
 							"path": [
 								"api",
 								"reserves",
@@ -1059,11 +1065,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8181/api/login",
+					"raw": "localhost:8080/api/login",
 					"host": [
 						"localhost"
 					],
-					"port": "8181",
+					"port": "8080",
 					"path": [
 						"api",
 						"login"
@@ -1094,7 +1100,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\" : \"jose\",\r\n    \"email\" : \"administrator@gmail.com\",\r\n    \"password\" : \"pass123\",\r\n    \"type\" : \"admin\",\r\n    \"active\": true\r\n}",
+					"raw": "{\r\n    \"name\" : \"jose\",\r\n    \"email\" : \"administrator@gmail.com\",\r\n    \"password\" : \"pass12334565\",\r\n    \"type\" : \"admin\",\r\n    \"active\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1102,11 +1108,11 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8181/api/user/authenticate",
+					"raw": "localhost:8080/api/user/authenticate",
 					"host": [
 						"localhost"
 					],
-					"port": "8181",
+					"port": "8080",
 					"path": [
 						"api",
 						"user",
@@ -1118,6 +1124,9 @@
 		},
 		{
 			"name": "email",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
 					"type": "basic",
@@ -1136,12 +1145,21 @@
 				},
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:8181/api/email/jcolvera_s@outlook.com",
+					"raw": "localhost:8080/api/email/jcolvera_s@outlook.com",
 					"host": [
 						"localhost"
 					],
-					"port": "8181",
+					"port": "8080",
 					"path": [
 						"api",
 						"email",
@@ -1185,11 +1203,11 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8181/api/upload",
+					"raw": "localhost:8080/api/upload",
 					"host": [
 						"localhost"
 					],
-					"port": "8181",
+					"port": "8080",
 					"path": [
 						"api",
 						"upload"
