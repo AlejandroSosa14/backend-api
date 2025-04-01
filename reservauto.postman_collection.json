@@ -387,6 +387,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getUserByName",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/users/name/jose",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"name",
+								"jose"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

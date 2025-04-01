@@ -215,5 +215,11 @@ public class UserService implements IUserService {
 
     }
 
+    @Override
+    public UserEntity findByName(String username) {
+        return userRepository.findByName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
 }
 

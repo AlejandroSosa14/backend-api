@@ -110,4 +110,11 @@ public class UserController {
     public void updateFavorites(@PathVariable String username, @PathVariable Long id) {
         userService.updateFavorites(username, id);
     }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<UserEntity> findByUsername(@PathVariable String name) {
+        {
+            return ResponseEntity.ok(userService.findByName(name));
+        }
+    }
 }

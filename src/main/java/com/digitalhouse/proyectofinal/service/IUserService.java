@@ -16,5 +16,6 @@ public interface IUserService {
     void setFavorites(FavoriteRequest favoriteRequest);
     Set<CarEntity> getFavorites(String username);
     void updateFavorites(String username, Long id);
+    UserEntity findByName(String name);
 
 }
