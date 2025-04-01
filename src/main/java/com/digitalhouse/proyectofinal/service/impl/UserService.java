@@ -29,8 +29,8 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final CarRepository carRepository;
-    @Value("${url.backend}")
-    private String urlBackend;
+    @Value("${url.frontend}")
+    private String urlFrontend;
 
     public List<UserEntity> getAllUser() {
         return userRepository.findAll();
@@ -95,7 +95,7 @@ public class UserService implements IUserService {
 
                 Best regards,
                 The Team
-                """.formatted(savedUser.getName(), savedUser.getEmail(), urlBackend + "/login");
+                """.formatted(savedUser.getName(), savedUser.getEmail(), urlFrontend + "/login");
         try {
             emailService.sendEmail(savedUser.getEmail(), subject, message);
         } catch (MessagingException me) {

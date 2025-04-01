@@ -26,8 +26,8 @@ public class ReserveService {
     private final ReserveRepository reserveRepository;
     private final CarRepository carRepository;
     private final EmailService emailService;
-    @Value("${url.backend}")
-    private String urlBackend;
+    @Value("${url.frontend}")
+    private String urlFrontend;
 
     public List<ReserveEntity> findAll() {
         return reserveRepository.findAll();
@@ -155,7 +155,7 @@ public class ReserveService {
             </body>
             </html>
             
-            """, userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), listCars, urlBackend + "/login");
+            """, userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), listCars, urlFrontend + "/login");
         try {
             emailService.sendEmail(userEntity.getEmail(), subject, message);
         } catch (MessagingException me) {
