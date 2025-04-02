@@ -117,4 +117,9 @@ public class UserController {
             return ResponseEntity.ok(userService.findByName(name));
         }
     }
+
+    @PutMapping("/scores/{username}/{idCar}/{score}")
+    public void updateScores(@PathVariable String username, @PathVariable Long idCar, @PathVariable Integer score) {
+        userService.setScore(username, idCar, score);
+    }
 }

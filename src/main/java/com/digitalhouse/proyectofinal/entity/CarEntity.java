@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -110,4 +111,7 @@ public class CarEntity {
     @Setter
     @NotBlank(message = "Color required")
     private String color;
+
+    @Setter
+    private List<Integer> scores = new ArrayList<>();
 }

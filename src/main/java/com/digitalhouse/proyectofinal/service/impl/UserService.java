@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.service.impl;
 
 import com.digitalhouse.proyectofinal.dto.FavoriteRequest;
 import com.digitalhouse.proyectofinal.entity.CarEntity;
+import com.digitalhouse.proyectofinal.entity.ReserveEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.exception.ConflictException;
 import com.digitalhouse.proyectofinal.exception.EmailSendingException;
@@ -15,10 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -29,6 +27,7 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final CarRepository carRepository;
+    private final ReserveService reserveService;
     @Value("${url.frontend}")
     private String urlFrontend;
 
@@ -211,7 +210,7 @@ public class UserService implements IUserService {
             throw new ResourceNotFoundException("Car not found");
         }
 
-         userRepository.save(userEntity.get());
+        userRepository.save(userEntity.get());
 
     }
 
@@ -219,6 +218,28 @@ public class UserService implements IUserService {
     public UserEntity findByName(String username) {
         return userRepository.findByName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    @Override
+    public void setScore(String username, Long idCar, Integer score) {
+        Optional<UserEntity> userEntity = userRepository.findByName(username);
+
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        List<ReserveEntity> reserveEntities = reserveService.findByUserId(userEntity.get().getId());
+        List<Set<CarEntity>> cars = reserveEntities.stream().map(ReserveEntity::getCars).toList();
+        CarEntity carEntity = cars.stream().flatMap(Set::stream).filter(car -> car.getId().equals(idCar)).findFirst().orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+
+        if (carEntity.getScores() == null) {
+            carEntity.setScores(new ArrayList<>());
+        }
+
+        carEntity.getScores().add(score);
+
+        carRepository.save(carEntity);
+
     }
 
 }
