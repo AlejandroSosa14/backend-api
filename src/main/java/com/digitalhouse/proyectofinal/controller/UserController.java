@@ -118,8 +118,8 @@ public class UserController {
         }
     }
 
-    @PutMapping("/scores/{username}/{idCar}/{score}")
-    public void updateScores(@PathVariable String username, @PathVariable Long idCar, @PathVariable Integer score) {
-        userService.setScore(username, idCar, score);
+    @PutMapping("/scores/{username}/{idCar}/{score}/{comment}")
+    public void updateScores(@PathVariable String username, @PathVariable Long idCar, @PathVariable Integer score, @PathVariable String comment) {
+        userService.setScore(username, idCar, score, comment);
     }
 }

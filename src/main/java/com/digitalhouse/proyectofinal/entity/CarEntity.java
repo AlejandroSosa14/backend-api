@@ -3,7 +3,9 @@ package com.digitalhouse.proyectofinal.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -113,5 +115,6 @@ public class CarEntity {
     private String color;
 
     @Setter
-    private List<Integer> scores = new ArrayList<>();
+    @ElementCollection
+    private Map<Integer, String> scores = new HashMap<>();
 }

@@ -221,7 +221,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void setScore(String username, Long idCar, Integer score) {
+    public void setScore(String username, Long idCar, Integer score, String comment){
         Optional<UserEntity> userEntity = userRepository.findByName(username);
 
         if (userEntity.isEmpty()) {
@@ -233,10 +233,10 @@ public class UserService implements IUserService {
         CarEntity carEntity = cars.stream().flatMap(Set::stream).filter(car -> car.getId().equals(idCar)).findFirst().orElseThrow(() -> new ResourceNotFoundException("Car not found"));
 
         if (carEntity.getScores() == null) {
-            carEntity.setScores(new ArrayList<>());
+            carEntity.setScores(new HashMap<>());
         }
 
-        carEntity.getScores().add(score);
+        carEntity.getScores().put(score, comment);
 
         carRepository.save(carEntity);
 

@@ -445,7 +445,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/users/scores/jose/11/2",
+							"raw": "localhost:8080/api/users/scores/jose/11/5/Me custo el cuidado previo que tenia",
 							"host": [
 								"localhost"
 							],
@@ -456,7 +456,8 @@
 								"scores",
 								"jose",
 								"11",
-								"2"
+								"5",
+								"Me custo el cuidado previo que tenia"
 							]
 						}
 					},
