@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.service.impl;
 
 import com.digitalhouse.proyectofinal.dto.FavoriteRequest;
 import com.digitalhouse.proyectofinal.entity.CarEntity;
+import com.digitalhouse.proyectofinal.entity.ReserveEntity;
 import com.digitalhouse.proyectofinal.entity.UserEntity;
 import com.digitalhouse.proyectofinal.exception.ConflictException;
 import com.digitalhouse.proyectofinal.exception.EmailSendingException;
@@ -11,13 +12,11 @@ import com.digitalhouse.proyectofinal.repository.UserRepository;
 import com.digitalhouse.proyectofinal.service.IUserService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -28,6 +27,9 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final CarRepository carRepository;
+    private final ReserveService reserveService;
+    @Value("${url.frontend}")
+    private String urlFrontend;
 
     public List<UserEntity> getAllUser() {
         return userRepository.findAll();
@@ -88,11 +90,11 @@ public class UserService implements IUserService {
                         
                 Please keep your credentials safe. If you did not register this account, contact support immediately.
 
-                Link for login: http://localhost:8080/login
+                Link for login: %s
 
                 Best regards,
                 The Team
-                """.formatted(savedUser.getName(), savedUser.getEmail());
+                """.formatted(savedUser.getName(), savedUser.getEmail(), urlFrontend + "/login");
         try {
             emailService.sendEmail(savedUser.getEmail(), subject, message);
         } catch (MessagingException me) {
@@ -208,7 +210,35 @@ public class UserService implements IUserService {
             throw new ResourceNotFoundException("Car not found");
         }
 
-         userRepository.save(userEntity.get());
+        userRepository.save(userEntity.get());
+
+    }
+
+    @Override
+    public UserEntity findByName(String username) {
+        return userRepository.findByName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+
+    @Override
+    public void setScore(String username, Long idCar, Integer score, String comment){
+        Optional<UserEntity> userEntity = userRepository.findByName(username);
+
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        List<ReserveEntity> reserveEntities = reserveService.findByUserId(userEntity.get().getId());
+        List<Set<CarEntity>> cars = reserveEntities.stream().map(ReserveEntity::getCars).toList();
+        CarEntity carEntity = cars.stream().flatMap(Set::stream).filter(car -> car.getId().equals(idCar)).findFirst().orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+
+        if (carEntity.getScores() == null) {
+            carEntity.setScores(new HashMap<>());
+        }
+
+        carEntity.getScores().put(score, comment);
+
+        carRepository.save(carEntity);
 
     }
 

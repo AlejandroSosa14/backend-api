@@ -50,7 +50,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/cars/2",
+							"raw": "localhost:8080/api/cars/11",
 							"host": [
 								"localhost"
 							],
@@ -58,7 +58,7 @@
 							"path": [
 								"api",
 								"cars",
-								"2"
+								"11"
 							]
 						}
 					},
@@ -387,6 +387,81 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getUserByName",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/users/name/jose",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"name",
+								"jose"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setScore",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "pass12334565",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "jose",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/users/scores/jose/11/5/Me custo el cuidado previo que tenia",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"scores",
+								"jose",
+								"11",
+								"5",
+								"Me custo el cuidado previo que tenia"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -604,7 +679,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/cars/search?query=automatico 1000.00&page=0&size=10&sort=serialNumber,asc",
+							"raw": "http://localhost:8080/api/cars/search?query=automatico  1000.00 New York&page=0&size=10&sort=serialNumber,asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -618,7 +693,7 @@
 							"query": [
 								{
 									"key": "query",
-									"value": "automatico 1000.00"
+									"value": "automatico  1000.00 New York"
 								},
 								{
 									"key": "page",
@@ -662,6 +737,9 @@
 				{
 					"name": "findByBrand",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -684,6 +762,9 @@
 				{
 					"name": "findByLocationCity",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -910,7 +991,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        },\r\n        {\r\n            \"id\": 13\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-03-28\",\r\n    \"endDate\": \"2025-03-31\"\r\n}",
+							"raw": "{\r\n    \"cars\": [\r\n        {\r\n            \"id\": 11\r\n        }\r\n    ],\r\n    \"user\": {\r\n        \"name\": \"jose\"\r\n    },\r\n    \"startDate\": \"2025-04-03\",\r\n    \"endDate\": \"2025-04-05\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1196,21 +1277,22 @@
 							"key": "files",
 							"type": "file",
 							"src": [
-								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/4.jpg",
-								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/volkswagen/2025/polo/5.jpg"
+								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/1.jpg",
+								"/C:/Users/cristian/Desktop/backend-api/src/main/resources/static/images/nissan/2025/X Trail Advance/2.jpg"
 							]
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/api/upload",
+					"raw": "localhost:8080/api/upload/cars",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"upload"
+						"upload",
+						"cars"
 					]
 				}
 			},

@@ -110,4 +110,16 @@ public class UserController {
     public void updateFavorites(@PathVariable String username, @PathVariable Long id) {
         userService.updateFavorites(username, id);
     }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<UserEntity> findByUsername(@PathVariable String name) {
+        {
+            return ResponseEntity.ok(userService.findByName(name));
+        }
+    }
+
+    @PutMapping("/scores/{username}/{idCar}/{score}/{comment}")
+    public void updateScores(@PathVariable String username, @PathVariable Long idCar, @PathVariable Integer score, @PathVariable String comment) {
+        userService.setScore(username, idCar, score, comment);
+    }
 }

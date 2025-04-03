@@ -30,6 +30,9 @@ public class CarSpecification {
                 Predicate stringPredicate = criteriaBuilder.or(
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("brand")), pattern),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), pattern),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get("color")), pattern),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get("locationCity")), pattern),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get("locationCountry")), pattern),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("transmissionType")), pattern),
                         criteriaBuilder.like(criteriaBuilder.lower(categoryJoin.get("name")), pattern),
                         criteriaBuilder.like(criteriaBuilder.lower(categoryJoin.get("description")), pattern)

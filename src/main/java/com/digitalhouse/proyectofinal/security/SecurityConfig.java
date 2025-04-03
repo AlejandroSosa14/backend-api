@@ -2,6 +2,7 @@ package com.digitalhouse.proyectofinal.security;
 
 import com.digitalhouse.proyectofinal.filter.JwtGeneratorFilter;
 import com.digitalhouse.proyectofinal.filter.JwtValidatorFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,6 +29,9 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    @Value("${url.frontend}")
+    private String urlFrontend;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -51,7 +55,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/email/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/user/authenticate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/upload").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/api/upload/**").hasRole("admin")
                         .requestMatchers(HttpMethod.GET, "/api/login").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/cars/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()
@@ -59,12 +63,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/cars/**").hasRole("admin")
                         .requestMatchers(HttpMethod.POST, "/api/cars").hasRole("admin")
                         .requestMatchers(HttpMethod.PUT, "/api/cars/**").hasRole("admin")
-                        .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.POST, "/api/users/favorites").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.GET, "/api/users/favorites/*").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.PUT, "/api/users/favorites/**").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("admin")
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").hasRole("admin")
                         .requestMatchers(HttpMethod.POST, "/api/categories").hasRole("admin")
@@ -74,6 +78,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/reserves").hasAnyRole("admin")
                         .requestMatchers(HttpMethod.GET, "/api/reserves/**").hasAnyRole("admin","customer")
                         .requestMatchers(HttpMethod.GET, "/api/reserves/user/**").hasAnyRole("admin","customer")
+                        .requestMatchers(HttpMethod.PUT, "/api/users/scores/**").hasAnyRole("admin","customer")
                 ) .httpBasic(Customizer.withDefaults());
                 /*.httpBasic(httpBasic -> {
                 });*/

@@ -2,7 +2,10 @@ package com.digitalhouse.proyectofinal.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -110,4 +113,8 @@ public class CarEntity {
     @Setter
     @NotBlank(message = "Color required")
     private String color;
+
+    @Setter
+    @ElementCollection
+    private Map<Integer, String> scores = new HashMap<>();
 }
