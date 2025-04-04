@@ -133,13 +133,20 @@ public class CarService implements ICarService {
             List<String> uploadedFiles = new ArrayList<>();
 
             if (files != null && !files.isEmpty()) {
-                uploadedFiles = objectMapper.readValue(fileUploadService.uploadFiles(dir, files), List.class);
+                String uploadedFilesJson = fileUploadService.uploadFiles(dir, files);
+
+                uploadedFiles = objectMapper.readValue(uploadedFilesJson, List.class);
             }
 
+            if (uploadedFiles.isEmpty()) {
+                uploadedFiles = new ArrayList<>();
+            }
             carEntity.setImages(objectMapper.writeValueAsString(uploadedFiles));
+
             return carRepository.save(carEntity);
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al procesar las imágenes o cargar los archivos", e);
         }
     }
 

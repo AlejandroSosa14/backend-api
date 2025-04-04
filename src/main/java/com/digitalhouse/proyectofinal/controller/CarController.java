@@ -101,10 +101,15 @@ public class CarController {
     public ResponseEntity<?> create(@RequestPart("car") @Valid @JsonProperty("car") String carJson, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        CarEntity carEntity = objectMapper.readValue(carJson, CarEntity.class);
+        CarEntity carEntity = null;
+        try {
+            carEntity = objectMapper.readValue(carJson, CarEntity.class);
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al procesar el JSON del auto: " + e.getMessage());
+        }
+
         CarEntity carEntitySave = carService.create(carEntity, PATH_UPLOAD, files);
         return ResponseEntity.status(HttpStatus.CREATED).body(carEntitySave);
-
     }
     @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(
