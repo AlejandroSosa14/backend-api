@@ -66,10 +66,26 @@ public class ProyectofinalApplication {
             categoryRepository.save(new CategoryEntity(null, "Crossover", "Description", null));
             categoryRepository.save(new CategoryEntity(null, "Sedan", "Description", null));
 
+
             carRepository.save(
                     new CarEntity(
                             null,
                             "00000000000000001",
+                            "NISSAN",
+                            "Versa ww",
+                            2020,
+                            false,
+                            "gasolina",
+                            "estandar",
+                            new BigDecimal(450),
+                            null,
+                            new CategoryEntity(2L, "Sedan", "Description", null),
+                            LocalDate.of(2025,1,10),null,"Texas","EEUU","blue",null));
+
+            carRepository.save(
+                    new CarEntity(
+                            null,
+                            "00000000000000002",
                             "NISSAN",
                             "X Trail Advance",
                             2025,
@@ -79,22 +95,7 @@ public class ProyectofinalApplication {
                             new BigDecimal(1000),
                             null,
                             new CategoryEntity(1L, "Crossover", "Description", null),
-                            LocalDate.now(),null,"New York","EEUU","red",null));
-
-            carRepository.save(
-                    new CarEntity(
-                            null,
-                            "00000000000000002",
-                            "NISSAN",
-                            "Versa",
-                            2020,
-                            false,
-                            "gasolina",
-                            "estandar",
-                            new BigDecimal(450),
-                            null,
-                            new CategoryEntity(2L, "Sedan", "Description", null),
-                            LocalDate.of(2025,1,10),null,"Texas","EEUU","blue",null));
+                            LocalDate.of(2025,1,10),null,"New York","EEUU","red",null));
 
             carRepository.save(
                     new CarEntity(
@@ -117,7 +118,7 @@ public class ProyectofinalApplication {
                             "NISSAN",
                             "Versa",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(450),
@@ -146,7 +147,7 @@ public class ProyectofinalApplication {
                             "AUDI",
                             "Venom",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(1820),
@@ -175,7 +176,7 @@ public class ProyectofinalApplication {
                             "Honda",
                             "Honda Civic",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(1852),
@@ -205,7 +206,7 @@ public class ProyectofinalApplication {
                             "NISSAN",
                             "Versa",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(450),
@@ -234,7 +235,7 @@ public class ProyectofinalApplication {
                             "Tesla",
                             "Tesla Model S",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(450),
@@ -262,7 +263,7 @@ public class ProyectofinalApplication {
                             "Porsche",
                             "Porsche 911",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(1820),
@@ -291,7 +292,7 @@ public class ProyectofinalApplication {
                             "KIA",
                             "Kia Sportage",
                             2020,
-                            false,
+                            true,
                             "gasolina",
                             "estandar",
                             new BigDecimal(1852),
