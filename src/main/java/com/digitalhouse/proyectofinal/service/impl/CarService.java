@@ -133,9 +133,10 @@ public class CarService implements ICarService {
             List<String> uploadedFiles = new ArrayList<>();
 
             if (files != null && !files.isEmpty()) {
-                String uploadedFilesJson = fileUploadService.uploadFiles(dir, files);
+//                List<String> newFilesUploads = Collections.singletonList(fileUploadService.uploadFiles(dir, files));
+//                String uploadedFilesJson = fileUploadService.uploadFiles(dir, files);
 
-                uploadedFiles = objectMapper.readValue(uploadedFilesJson, List.class);
+                uploadedFiles = Collections.singletonList(fileUploadService.uploadFiles(dir, files));
             }
 
             if (uploadedFiles.isEmpty()) {
