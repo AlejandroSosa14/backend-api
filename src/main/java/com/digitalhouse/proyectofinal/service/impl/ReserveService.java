@@ -55,25 +55,37 @@ public class ReserveService {
             throw new BadRequestException("Start date must be after today");
         }
 
-        Set<CarEntity> cars = new HashSet<>();
+//        CarEntity car = reserveEntity.getCar_id();
+        CarEntity car = carRepository.findById(reserveEntity.getCar().getId()).orElseThrow(() -> new ResourceNotFoundException("Car not found"));
 
-        reserveEntity.getCars().forEach(car -> {
-
-            Optional<CarEntity> carEntity = carRepository.findById(car.getId());
-
-            if (carEntity.isEmpty()) {
+        if (car.getId() == null) {
                 throw new ResourceNotFoundException(car.getName() + " car not found");
             }
 
-            if (!carEntity.get().getStatus()) {
-                throw new BadRequestException(carEntity.get().getName() + " car is already reserved");
+            if (!car.getStatus()) {
+                throw new BadRequestException(car.getName() + " car is already reserved");
             }
 
-            carEntity.get().setStatus(Boolean.FALSE);
-
-            cars.add(carEntity.get());
-
-        });
+            car.setStatus(Boolean.FALSE);
+//        Set<CarEntity> cars = new HashSet<>();
+//
+//        reserveEntity.getCars().forEach(car -> {
+//
+//            Optional<CarEntity> carEntity = carRepository.findById(car.getId());
+//
+//            if (carEntity.isEmpty()) {
+//                throw new ResourceNotFoundException(car.getName() + " car not found");
+//            }
+//
+//            if (!carEntity.get().getStatus()) {
+//                throw new BadRequestException(carEntity.get().getName() + " car is already reserved");
+//            }
+//
+//            carEntity.get().setStatus(Boolean.FALSE);
+//
+//            cars.add(carEntity.get());
+//
+//        });
 
         UserEntity userEntity = userRepository.findByName(reserveEntity.getUser().getName()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -88,13 +100,13 @@ public class ReserveService {
                 .build();
 
         reserveEntity.setUser(userBuilder);
-        reserveEntity.setCars(cars);
+        reserveEntity.setCar(car);
 
         // Mensaje personalizado --> Mejorar
         String subject = "Reservation details";
-        String listCars = cars.stream()
-                .map(carEntity -> carEntity.getName() + " " + carEntity.getBrand() + " " + carEntity.getModel())
-                .collect(Collectors.joining(", "));
+//        String listCars = cars.stream()
+//                .map(carEntity -> carEntity.getName() + " " + carEntity.getBrand() + " " + carEntity.getModel())
+//                .collect(Collectors.joining(", "));
 
         String message = String.format("""
             <!DOCTYPE html>
@@ -155,7 +167,7 @@ public class ReserveService {
             </body>
             </html>
             
-            """, userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), listCars, urlFrontend + "/login");
+            """, userEntity.getName(), reserveEntity.getStartDate() + " - " + reserveEntity.getEndDate(), car, urlFrontend + "/login");
         try {
             emailService.sendEmail(userEntity.getEmail(), subject, message);
         } catch (MessagingException me) {
