@@ -99,8 +99,8 @@ public class CarEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate postDate;
 
-    @OneToMany(mappedBy = "id")
-    private List<ReserveEntity> reserves;
+//    @OneToMany(mappedBy = "id")
+//    private List<ReserveEntity> reserves;
 
     @Setter
     @NotBlank(message = "Location city required")

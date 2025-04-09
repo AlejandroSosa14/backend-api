@@ -19,14 +19,18 @@ public class ReserveEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @Setter
+//    @ManyToMany
+//    @JoinTable(
+//            name = "reserve_car",
+//            joinColumns = @JoinColumn(name = "reserve_id"),
+//            inverseJoinColumns = @JoinColumn(name = "car_id")
+//    )
+//    private Set<CarEntity> cars;
     @Setter
-    @ManyToMany
-    @JoinTable(
-            name = "reserve_car",
-            joinColumns = @JoinColumn(name = "reserve_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id")
-    )
-    private Set<CarEntity> cars;
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private CarEntity car;
 
     @Setter
     @ManyToOne

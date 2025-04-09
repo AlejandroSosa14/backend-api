@@ -229,9 +229,9 @@ public class UserService implements IUserService {
         }
 
         List<ReserveEntity> reserveEntities = reserveService.findByUserId(userEntity.get().getId());
-        List<Set<CarEntity>> cars = reserveEntities.stream().map(ReserveEntity::getCars).toList();
-        CarEntity carEntity = cars.stream().flatMap(Set::stream).filter(car -> car.getId().equals(idCar)).findFirst().orElseThrow(() -> new ResourceNotFoundException("Car not found"));
-
+//        List<Set<CarEntity>> cars = reserveEntities.stream().map(ReserveEntity::getCars).toList();
+//        CarEntity carEntity = cars.stream().flatMap(Set::stream).filter(car -> car.getId().equals(idCar)).findFirst().orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+        CarEntity carEntity = (CarEntity) reserveEntities.stream().map(ReserveEntity::getCar);
         if (carEntity.getScores() == null) {
             carEntity.setScores(new HashMap<>());
         }
